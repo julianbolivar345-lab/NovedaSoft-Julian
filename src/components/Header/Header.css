@@ -1,0 +1,81 @@
+/* ==========================================================================
+   COMPONENTE HEADER - ENCABEZADO INSTITUCIONAL SENA
+   ========================================================================== */
+
+.sena-header {
+  height: var(--header-height);
+  background-color: var(--sena-azul);
+  color: var(--texto-inverso);
+  padding: 0 var(--space-4);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: var(--z-header);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Lado Izquierdo: Botón Hamburguesa y Título */
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.hamburger-btn {
+  background: transparent;
+  color: var(--texto-inverso);
+  font-size: var(--icon-lg);
+  width: var(--btn-height-sm);
+  height: var(--btn-height-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-sm);
+  transition: background-color var(--transition-fast);
+}
+
+.hamburger-btn:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.brand-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.brand-title {
+  font-size: var(--text-base);
+  font-weight: var(--weight-bold);
+  line-height: 1.2;
+}
+
+.brand-subtitle {
+  font-size: var(--text-xs);
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* Lado Derecho: Badge de Rol y Usuario */
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.user-badge {
+  background-color: var(--sena-verde);
+  color: var(--texto-inverso);
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-pill);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semibold);
+  letter-spacing: 0.3px;
+}
+
+/* Adaptación Responsiva para Pantallas Pequeñas */
+@media (max-width: 480px) {
+  .brand-subtitle {
+    display: none; /* Oculta el subtítulo en celulares muy pequeños */
+  }
+}

@@ -1,0 +1,110 @@
+:root {
+  /* ==========================================================================
+     1. PALETA DE COLORES INSTITUCIONAL Y ESTADOS (Brand & Feedback Colors)
+     ========================================================================== */
+  /* Colores Principales SENA */
+  --sena-verde: #39A900;
+  --sena-verde-hover: #2e8800;
+  --sena-azul: #00324D;
+  --sena-azul-hover: #002235;
+
+  /* Neutros y Superficies */
+  --sena-fondo: #F4F6F8;
+  --sena-blanco: #FFFFFF;
+  --sena-borde: #E0E0E0;
+  --sena-borde-focus: #39A900;
+
+  /* Jerarquía de Texto */
+  --texto-principal: #1A1A1A;
+  --texto-secundario: #666666;
+  --texto-atenuado: #999999;
+  --texto-inverso: #FFFFFF;
+
+  /* Estados de Viabilidad y Alertas (Cards & Badges) */
+  --estado-apto: #39A900;
+  --estado-apto-bg: #E8F5E9;
+  --estado-alerta: #F57C00;
+  --estado-alerta-bg: #FFF3E0;
+  --estado-no-apto: #D32F2F;
+  --estado-no-apto-bg: #FFEBEE;
+
+  /* ==========================================================================
+     2. TIPOGRAFÍA Y ESCALA DE TEXTO (Typography & Font Scale)
+     ========================================================================== */
+  --fuente-principal: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  
+  /* Tamaños de Fuente */
+  --text-xs: 0.75rem;    /* 12px - Fechas, badges secundarios, captions */
+  --text-sm: 0.875rem;   /* 14px - Labels de formularios, textos secundarios */
+  --text-base: 1rem;     /* 16px - Texto de cuerpo, inputs, botones */
+  --text-lg: 1.125rem;   /* 18px - Subtítulos de cards */
+  --text-xl: 1.25rem;    /* 20px - Títulos de módulos/secciones */
+  --text-2xl: 1.5rem;    /* 24px - Encabezados principales */
+  --text-3xl: 2.25rem;   /* 36px - Títulos de pantallas de Bienvenida */
+
+  /* Pesos de Fuente */
+  --weight-normal: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+  --weight-black: 900;
+
+  /* ==========================================================================
+     3. ESPACIADO Y PADDING (Spacing Scale)
+     ========================================================================== */
+  --space-1: 0.25rem;  /* 4px */
+  --space-2: 0.5rem;   /* 8px */
+  --space-3: 0.75rem;  /* 12px */
+  --space-4: 1rem;     /* 16px */
+  --space-5: 1.25rem;  /* 20px */
+  --space-6: 1.5rem;   /* 24px */
+  --space-8: 2rem;     /* 32px */
+  --space-10: 2.5rem;  /* 40px */
+
+  /* ==========================================================================
+     4. BORDES Y CURVATURA (Border Radius)
+     ========================================================================== */
+  --radius-sm: 4px;    /* Chips pequeños, inputs */
+  --radius-md: 8px;    /* Botones estándar, alertas */
+  --radius-lg: 12px;   /* Cards de reportes, contenedores */
+  --radius-xl: 20px;   /* Modal, tarjetas flotantes */
+  --radius-pill: 50px; /* Botones estilo 'Pill' como INGRESA y badges */
+
+  /* ==========================================================================
+     5. SOMBRAS Y ELEVACIÓN (Box Shadows)
+     ========================================================================== */
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.1);
+  --shadow-lg: 0 10px 25px rgba(0,0,0,0.15);
+  --shadow-inner: inset 0 2px 4px rgba(0,0,0,0.06);
+
+  /* ==========================================================================
+     6. TAMAÑOS DE COMPONENTES E ÍCONOS (Component Sizes)
+     ========================================================================== */
+  /* Íconos */
+  --icon-sm: 16px;
+  --icon-md: 20px;
+  --icon-lg: 24px;
+  --icon-xl: 32px;
+
+  /* Botones */
+  --btn-height-sm: 36px;
+  --btn-height-md: 44px;
+  --btn-height-lg: 52px;
+
+  /* Layout y Navegación */
+  --header-height: 60px;
+  --sidebar-width: 280px;
+  --max-content-width: 900px;
+
+  /* ==========================================================================
+     7. TRANSICIONES Y Z-INDEX (Transitions & Layering)
+     ========================================================================== */
+  --transition-fast: 0.15s ease;
+  --transition-normal: 0.25s ease;
+
+  --z-base: 1;
+  --z-header: 100;
+  --z-sidebar: 200;
+  --z-modal: 300;
+}
