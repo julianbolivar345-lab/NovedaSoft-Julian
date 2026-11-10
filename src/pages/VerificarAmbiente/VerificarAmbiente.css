@@ -1,0 +1,353 @@
+/* ==========================================================================
+   NOVEDADSOFT - VERIFICAR AMBIENTE (PURE CSS MODULAR)
+   ========================================================================== */
+
+.verificar-layout-wrapper {
+  display: flex;
+  min-height: 100vh;
+  background-color: #F8F9FF;
+  width: 100%;
+  font-family: var(--font-main, 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
+  color: var(--text-primary, #0F172A);
+}
+
+.verificar-main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  margin-left: 288px;
+  font-family: var(--font-main, 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
+  transition: margin-left 0.3s ease;
+}
+
+.verificar-topbar {
+  height: 64px;
+  padding: 0 24px;
+  background-color: rgba(255, 255, 255, 0.90);
+  box-shadow: 0px 1px 8px rgba(0, 0, 0, 0.04);
+  backdrop-filter: blur(12px);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  font-family: var(--font-main, 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
+}
+
+.verificar-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: #94A3B8;
+  font-family: var(--font-main, 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
+}
+
+.verificar-breadcrumb-active {
+  color: #0B1C30;
+  font-weight: 600;
+  font-family: var(--font-main, 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
+}
+
+.verificar-body-container {
+  padding: 40px 24px 224px 24px;
+  max-width: 1024px;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  box-sizing: border-box;
+  font-family: var(--font-main, 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
+}
+
+/* Card Info */
+.verificar-info-card {
+  padding: 24px;
+  background-color: #F8FAFC;
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05);
+  border-radius: 16px;
+  border: 1px solid #E2E8F0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  font-family: var(--font-main, 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
+}
+
+.verificar-card-header {
+  padding-bottom: 12px;
+  border-bottom: 1px solid #E2E8F0;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.session-pill {
+  padding: 2px 10px;
+  background-color: #F0FDF4;
+  border-radius: 9999px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #296B39;
+  font-size: 11px;
+  font-weight: 600;
+  width: fit-content;
+  font-family: var(--font-main, 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
+}
+
+.verificar-title {
+  color: #0F172A;
+  font-size: 24px;
+  font-weight: 700;
+  margin: 4px 0 0 0;
+  line-height: 1.2;
+  font-family: var(--font-main, 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
+}
+
+.jornada-badge {
+  padding: 6px 12px;
+  background-color: #FFFFFF;
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05);
+  border-radius: 8px;
+  border: 1px solid #E2E8F0;
+  color: #475569;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: var(--font-main, 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
+}
+
+.verificar-meta-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.meta-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-main, 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
+}
+
+.meta-label {
+  color: #94A3B8;
+  font-size: 11px;
+  font-weight: 500;
+  font-family: var(--font-main, 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
+}
+
+.meta-value {
+  color: #0F172A;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: var(--font-main, 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
+}
+
+/* Recursos */
+.verificar-recursos-section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-family: var(--font-main, 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
+}
+
+.recursos-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.recursos-title {
+  color: #94A3B8;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.6px;
+  font-family: var(--font-main, 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
+}
+
+.recursos-count {
+  color: #94A3B8;
+  font-size: 11px;
+  font-weight: 500;
+  font-family: var(--font-main, 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
+}
+
+.recursos-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+.recurso-card {
+  padding: 14px;
+  background: white;
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05);
+  border-radius: 12px;
+  border: 1px solid #E2E8F0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-main, 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
+}
+
+.recurso-icon-box {
+  width: 36px;
+  height: 36px;
+  background: #F1F5F9;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.recurso-num {
+  color: #0F172A;
+  font-size: 14px;
+  font-weight: 700;
+  font-family: var(--font-main, 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
+}
+
+.recurso-name {
+  color: #475569;
+  font-size: 11px;
+  font-weight: 500;
+  font-family: var(--font-main, 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
+}
+
+/* Acciones Grid */
+.verificar-actions-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  font-family: var(--font-main, 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
+}
+
+.action-card {
+  padding: 40px;
+  background: white;
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05);
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+  font-family: var(--font-main, 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
+}
+
+.action-card-conforme {
+  border: 2px solid rgba(57, 169, 0, 0.30);
+}
+
+.action-card-falla {
+  border: 2px solid rgba(220, 38, 38, 0.30);
+}
+
+.action-card-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 360px;
+}
+
+.action-icon-wrapper {
+  width: 80px;
+  height: 80px;
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.conforme-icon {
+  background: #F0FDF4;
+  border: 1px solid rgba(167, 243, 208, 0.40);
+}
+
+.falla-icon {
+  background: #FEF2F2;
+  border: 1px solid rgba(186, 26, 26, 0.20);
+}
+
+.action-title {
+  color: #0F172A;
+  font-size: 22px;
+  font-weight: 700;
+  margin: 0 0 8px 0;
+  font-family: var(--font-main, 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
+}
+
+.action-desc {
+  color: #475569;
+  font-size: 14px;
+  line-height: 1.6;
+  margin: 0;
+  font-family: var(--font-main, 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
+}
+
+.btn-action-conforme {
+  width: 100%;
+  margin-top: 32px;
+  padding: 14px 24px;
+  background: #39A900;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: var(--font-main, 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
+  transition: background-color 0.2s ease;
+}
+
+.btn-action-conforme:hover {
+  background: #2e8700;
+}
+
+.btn-action-falla {
+  width: 100%;
+  margin-top: 32px;
+  padding: 14px 24px;
+  background: #DC2626;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: var(--font-main, 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
+  transition: background-color 0.2s ease;
+}
+
+.btn-action-falla:hover {
+  background: #b91c1c;
+}
+
+/* Ajuste Responsivo para Dispositivos Móviles */
+@media (max-width: 768px) {
+  .verificar-main-content {
+    margin-left: 0;
+    padding-top: 48px;
+  }
+
+  .verificar-meta-grid,
+  .recursos-grid,
+  .verificar-actions-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .verificar-body-container {
+    padding: 20px 16px 80px 16px;
+  }
+}

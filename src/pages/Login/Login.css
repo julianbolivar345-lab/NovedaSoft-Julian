@@ -1,0 +1,395 @@
+/* ==========================================================================
+   NOVEDADSOFT - LOGIN PAGE STYLES (Pure CSS & Responsive)
+   ========================================================================== */
+
+.login-wrapper {
+  width: 100%;
+  min-height: 100vh;
+  background-color: #f8fafc;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  box-sizing: border-box;
+}
+
+.login-main-container {
+  width: 100%;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+@media (min-width: 1024px) {
+  .login-main-container {
+    flex-direction: row;
+    min-height: calc(100vh - 50px);
+  }
+}
+
+/* ==========================================
+   PANEL IZQUIERDO: DEGRADADO INSTITUCIONAL
+   ========================================== */
+.login-left-panel {
+  flex: 1;
+  background: linear-gradient(106deg, #00283d 0%, #003c40 50%, #1e5c00 100%);
+  padding: 32px 24px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+@media (min-width: 1024px) {
+  .login-left-panel {
+    padding: 64px;
+  }
+}
+
+/* Blur Lights de Fondo */
+.blur-light-1 {
+  position: absolute;
+  width: 384px;
+  height: 384px;
+  left: -128px;
+  top: -128px;
+  background: rgba(57, 169, 0, 0.2);
+  border-radius: 50%;
+  filter: blur(32px);
+  pointer-events: none;
+}
+
+.blur-light-2 {
+  position: absolute;
+  width: 320px;
+  height: 320px;
+  right: -50px;
+  bottom: 100px;
+  background: rgba(0, 95, 115, 0.25);
+  border-radius: 50%;
+  filter: blur(32px);
+  pointer-events: none;
+}
+
+/* Tag Superior Izquierdo */
+.tag-cide-header {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 9999px;
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  width: fit-content;
+}
+
+/* Contenido Principal Izquierda */
+.left-content-center {
+  max-width: 576px;
+  margin: 40px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  z-index: 10;
+}
+
+.brand-login-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.brand-icon-box {
+  width: 54px;
+  height: 54px;
+  background-color: var(--sena-green, #39a900);
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.brand-title-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.brand-title-white {
+  color: #ffffff;
+  font-size: 26px;
+  font-weight: 800;
+}
+
+.brand-title-green {
+  color: #8afd5d;
+  font-size: 26px;
+  font-weight: 800;
+}
+
+.badge-cide-tag {
+  background-color: var(--sena-green, #39a900);
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+.brand-subtitle-tech {
+  color: #dce9ff;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+}
+
+.login-hero-title {
+  color: #ffffff;
+  font-size: 32px;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+@media (min-width: 768px) {
+  .login-hero-title {
+    font-size: 40px;
+    line-height: 1.25;
+  }
+}
+
+.login-hero-desc {
+  color: #dce9ff;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+/* Cards de Métricas Rápidas en Vidrio Glassmorphism */
+.glass-features-grid {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 16px;
+  backdrop-filter: blur(12px);
+  padding: 16px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+@media (min-width: 640px) {
+  .glass-features-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.glass-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.glass-icon-circle {
+  width: 40px;
+  height: 40px;
+  background: rgba(138, 253, 93, 0.2);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #8afd5d;
+}
+
+.glass-item-title {
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.glass-item-desc {
+  color: #dce9ff;
+  font-size: 11px;
+}
+
+/* Footer del lado izquierdo */
+.left-panel-footer {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #dce9ff;
+  font-size: 12px;
+}
+
+/* ==========================================
+   PANEL DERECHO: FORMULARIO DE INGRESO
+   ========================================== */
+.login-right-panel {
+  flex: 1;
+  background-color: #f8fafc;
+  padding: 32px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (min-width: 1024px) {
+  .login-right-panel {
+    padding: 64px;
+  }
+}
+
+.form-container-card {
+  width: 100%;
+  max-width: 448px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.form-header-title {
+  font-size: 28px;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-label-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.form-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.required-star {
+  color: #dc2626;
+  font-weight: 700;
+}
+
+.forgot-link {
+  color: #226d00;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.forgot-link:hover {
+  text-decoration: underline;
+}
+
+.input-icon-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.input-custom {
+  width: 100%;
+  height: 48px;
+  padding-left: 44px;
+  padding-right: 16px;
+  background-color: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  font-size: 14px;
+  color: #0f172a;
+  outline: none;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  box-sizing: border-box;
+}
+
+.input-custom:focus {
+  border-color: var(--sena-green, #39a900);
+  box-shadow: 0 0 0 3px rgba(57, 169, 0, 0.15);
+}
+
+.input-icon-left {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #94a3b8;
+  display: flex;
+  align-items: center;
+}
+
+.checkbox-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.checkbox-custom {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--sena-green, #39a900);
+  cursor: pointer;
+}
+
+.checkbox-label {
+  font-size: 13px;
+  color: #475569;
+}
+
+.btn-submit-login {
+  width: 100%;
+  height: 48px;
+  background-color: var(--sena-green, #39a900);
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 700;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  box-shadow: 0 4px 12px rgba(57, 169, 0, 0.25);
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.btn-submit-login:hover {
+  background-color: var(--sena-green-hover, #2f8b00);
+  transform: translateY(-1px);
+}
+
+/* FOOTER INFERIOR FLOTANTE */
+.login-bottom-bar {
+  background-color: rgba(239, 244, 255, 0.8);
+  backdrop-filter: blur(6px);
+  border-top: 1px solid #e2e8f0;
+  padding: 12px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 12px;
+  color: #3f4a38;
+}
+
+@media (min-width: 768px) {
+  .login-bottom-bar {
+    flex-direction: row;
+  }
+}

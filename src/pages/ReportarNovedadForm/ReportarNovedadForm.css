@@ -1,0 +1,454 @@
+/* ==========================================================================
+   NOVEDADSOFT - REGISTRAR NOVEDAD EN AMBIENTE (FORMULARIO CSS)
+   ========================================================================== */
+
+.report-form-layout {
+  display: flex;
+  min-height: 100vh;
+  background-color: #F8FAFC;
+  font-family: var(--font-main, 'Inter', system-ui, sans-serif);
+  color: var(--text-primary, #0F172A);
+}
+
+.report-form-main {
+  flex: 1;
+  margin-left: 288px; /* Offset para el Sidebar Desktop */
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #F8FAFC;
+}
+
+@media (max-width: 1024px) {
+  .report-form-main {
+    margin-left: 0;
+  }
+}
+
+/* TOPBAR SUPERIOR FLOTANTE */
+.report-topbar {
+  height: 64px;
+  padding: 0 24px;
+  background: rgba(255, 255, 255, 0.90);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid #E2E8F0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0px 1px 8px rgba(0, 0, 0, 0.04);
+}
+
+.report-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: #94A3B8;
+}
+
+.report-breadcrumb-active {
+  color: #0B1C30;
+  font-weight: 500;
+}
+
+/* CONTENEDOR ANCHO */
+.report-body-wrapper {
+  padding: 32px 24px 120px 24px;
+  max-width: 1152px;
+  margin: 0 auto;
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* HEADER DEL FORMULARIO */
+.report-header-row {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  justify-content: space-between;
+}
+
+@media (min-width: 768px) {
+  .report-header-row {
+    flex-direction: row;
+    align-items: center;
+  }
+}
+
+.report-title-main {
+  font-size: 28px;
+  font-weight: 600;
+  color: #0B1C30;
+  margin: 0 0 4px 0;
+}
+
+.report-title-sub {
+  font-size: 14px;
+  color: #475569;
+  line-height: 1.4;
+}
+
+.status-tag-registrada {
+  background-color: #F0FDF4;
+  border: 1px solid #A7F3D0;
+  border-radius: 8px;
+  padding: 6px 14px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #095223;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: fit-content;
+}
+
+.dot-green-icon {
+  width: 8px;
+  height: 8px;
+  background-color: var(--sena-green, #39A900);
+  border-radius: 50%;
+}
+
+/* TARJETA BLANCA DEL FORMULARIO */
+.report-card-container {
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* ESTRUCTURA DE 2 COLUMNAS */
+.form-two-columns {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
+
+@media (min-width: 850px) {
+  .form-two-columns {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.form-column {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* CAMPOS INDIVIDUALES */
+.form-field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-field-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.form-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #0B1C30;
+  letter-spacing: 0.24px;
+}
+
+.badge-required {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--sena-green, #39A900);
+}
+
+.badge-optional {
+  font-size: 11px;
+  font-weight: 500;
+  color: #94A3B8;
+}
+
+/* INPUTS Y SELECTS */
+.input-text-standard,
+.select-standard {
+  width: 100%;
+  height: 44px;
+  padding: 0 14px;
+  background-color: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 8px;
+  font-size: 14px;
+  color: #0B1C30;
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05);
+  outline: none;
+  box-sizing: border-box;
+  transition: border-color 0.2s ease;
+}
+
+.input-text-standard:focus,
+.select-standard:focus {
+  border-color: var(--sena-green, #39A900);
+}
+
+.input-with-icon-box {
+  position: relative;
+  width: 100%;
+}
+
+.input-icon-left {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #94A3B8;
+  display: flex;
+  align-items: center;
+}
+
+.input-with-icon {
+  padding-left: 40px !important;
+}
+
+/* BOTONES SELECTORES DE CATEGORÍA (3 BOTONES) */
+.category-buttons-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.category-btn {
+  background-color: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  border-radius: 8px;
+  padding: 10px 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.category-btn:hover {
+  background-color: #F1F5F9;
+}
+
+.category-btn.selected {
+  background-color: #F0FDF4;
+  border: 2px solid var(--sena-green, #39A900);
+}
+
+.category-btn-text {
+  font-size: 11px;
+  font-weight: 500;
+  color: #475569;
+  text-align: center;
+}
+
+.category-btn.selected .category-btn-text {
+  color: var(--sena-green, #39A900);
+  font-weight: 600;
+}
+
+/* BOTONES DE NIVEL DE IMPACTO */
+.impact-buttons-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.impact-btn {
+  background-color: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  border-radius: 8px;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.impact-btn.selected-bloqueante {
+  background-color: rgba(255, 218, 214, 0.40);
+  border: 2px solid #BA1A1A;
+}
+
+.impact-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.impact-title {
+  font-size: 11px;
+  font-weight: 600;
+  color: #0B1C30;
+}
+
+.impact-desc {
+  font-size: 10px;
+  color: #94A3B8;
+}
+
+/* TEXTAREA DE DESCRIPCIÓN */
+.textarea-description {
+  width: 100%;
+  min-height: 100px;
+  padding: 12px 14px;
+  background-color: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: inherit;
+  color: #0B1C30;
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05);
+  outline: none;
+  box-sizing: border-box;
+  resize: vertical;
+}
+
+.textarea-description:focus {
+  border-color: var(--sena-green, #39A900);
+}
+
+/* ZONA DE DROPZONE FOTOGRÁFICA */
+.upload-dropzone {
+  background-color: #F8FAFC;
+  border: 1px dashed #CBD5E1;
+  border-radius: 12px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.upload-dropzone:hover {
+  background-color: #F1F5F9;
+  border-color: var(--sena-green, #39A900);
+}
+
+.upload-icon-circle {
+  width: 40px;
+  height: 40px;
+  background-color: #FFFFFF;
+  border-radius: 50%;
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--sena-green, #39A900);
+  margin-bottom: 8px;
+}
+
+/* FOOTER DE ACCIONES DEL FORMULARIO */
+.form-footer-actions {
+  padding-top: 16px;
+  border-top: 1px solid #E2E8F0;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 16px;
+}
+
+.btn-cancel-return {
+  background: transparent;
+  border: none;
+  color: #475569;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 10px 16px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btn-cancel-return:hover {
+  background-color: #F1F5F9;
+}
+
+.btn-submit-novedad {
+  background-color: var(--sena-green, #39A900);
+  color: #FFFFFF;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 24px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05);
+  transition: background-color 0.2s ease;
+}
+
+.btn-submit-novedad:hover {
+  background-color: var(--sena-green-hover, #2f8b00);
+}
+/* BOTONES DE NIVEL DE IMPACTO - ESTADOS SELECCIONADOS */
+.impact-btn.selected-bloqueante {
+  background-color: rgba(255, 218, 214, 0.40);
+  border: 2px solid #BA1A1A;
+}
+
+.impact-btn.selected-parcial {
+  background-color: #EFF6FF;
+  border: 2px solid #3C627F;
+}
+
+.impact-btn.selected-menor {
+  background-color: #F0FDF4;
+  border: 2px solid #16A34A;
+}
+
+/* LISTA DE ARCHIVOS ADJUNTOS */
+.attached-files-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.attached-file-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #F1F5F9;
+  border-radius: 6px;
+  padding: 6px 12px;
+  font-size: 12px;
+  color: #0F172A;
+}
+
+.remove-file-btn {
+  background: none;
+  border: none;
+  color: #EF4444;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.remove-file-btn:hover {
+  background-color: #FEE2E2;
+}

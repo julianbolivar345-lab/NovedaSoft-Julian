@@ -1,0 +1,427 @@
+/* ==========================================================================
+   NOVEDADSOFT - CONSULTA DE MATERIALES Y BIENES (PURE CSS)
+   ========================================================================== */
+
+.consulta-layout-wrapper {
+  display: flex;
+  min-height: 100vh;
+  background-color: #F8FAFC;
+  font-family: var(--font-main, 'Inter', system-ui, sans-serif);
+  color: var(--text-primary, #0F172A);
+}
+
+.consulta-main-content {
+  flex: 1;
+  margin-left: 288px; /* Offset para el Sidebar Desktop */
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #F8FAFC;
+}
+
+@media (max-width: 1024px) {
+  .consulta-main-content {
+    margin-left: 0;
+  }
+}
+
+/* TOPBAR SUPERIOR FLOTANTE */
+.consulta-topbar {
+  height: 64px;
+  padding: 0 24px;
+  background: rgba(255, 255, 255, 0.90);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid #E2E8F0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0px 1px 8px rgba(0, 0, 0, 0.04);
+}
+
+.consulta-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: #94A3B8;
+}
+
+.consulta-breadcrumb-active {
+  color: #0B1C30;
+  font-weight: 500;
+}
+
+/* CONTENEDOR PRINCIPAL */
+.consulta-body-container {
+  padding: 24px;
+  max-width: 1280px;
+  margin: 0 auto;
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* HEADER Y BOTONES DE ACCIÓN */
+.consulta-header-row {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  justify-content: space-between;
+}
+
+@media (min-width: 768px) {
+  .consulta-header-row {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+}
+
+.custodia-pill {
+  background-color: #F0FDF4;
+  color: #095223;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 10px;
+  border-radius: 9999px;
+  text-transform: uppercase;
+  letter-spacing: 0.55px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.consulta-title {
+  font-size: 28px;
+  font-weight: 600;
+  color: #0F172A;
+  margin: 4px 0;
+}
+
+.consulta-subtitle {
+  font-size: 14px;
+  color: #475569;
+  line-height: 1.4;
+}
+
+.ambient-selector-box {
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 8px;
+  padding: 8px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.btn-export-excel {
+  height: 40px;
+  padding: 0 16px;
+  background-color: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 8px;
+  color: #0B1C30;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+/* BARRA DE BÚSQUEDA Y PESTAÑAS DE CATEGORÍA */
+.search-filter-section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.search-input-box {
+  position: relative;
+  max-width: 576px;
+  width: 100%;
+}
+
+.search-input-field {
+  width: 100%;
+  height: 48px;
+  padding: 0 16px 0 44px;
+  background-color: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 12px;
+  font-size: 14px;
+  color: #0F172A;
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05);
+  outline: none;
+  box-sizing: border-box;
+}
+
+.search-input-field:focus {
+  border-color: var(--sena-green, #39A900);
+}
+
+.category-tabs-wrapper {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+}
+
+.cat-tab-btn {
+  height: 38px;
+  padding: 0 16px;
+  background-color: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #475569;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.cat-tab-btn.active {
+  background-color: var(--sena-green, #39A900);
+  color: #FFFFFF;
+  border-color: var(--sena-green, #39A900);
+}
+
+.cat-badge-count {
+  background-color: #F1F5F9;
+  color: #475569;
+  font-size: 11px;
+  padding: 2px 6px;
+  border-radius: 9999px;
+  font-weight: 500;
+}
+
+.cat-tab-btn.active .cat-badge-count {
+  background-color: rgba(255, 255, 255, 0.25);
+  color: #FFFFFF;
+}
+
+/* ESTRUCTURA PRINCIPAL DE 2 COLUMNAS (TABLA + FICHA FICHA) */
+.inventory-grid-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
+
+@media (min-width: 1024px) {
+  .inventory-grid-container {
+    grid-template-columns: 1fr 380px;
+  }
+}
+
+/* TARJETA DE LA TABLA */
+.inventory-table-card {
+  background: #FFFFFF;
+  border-radius: 12px;
+  border: 1px solid #E2E8F0;
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.inventory-table-header {
+  padding: 16px 24px;
+  background-color: rgba(241, 245, 249, 0.50);
+  border-bottom: 1px solid #E2E8F0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.inventario-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.inventario-table th {
+  background-color: #F1F5F9;
+  color: #475569;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.55px;
+  padding: 14px 16px;
+  border-bottom: 1px solid #E2E8F0;
+}
+
+.inventario-table td {
+  padding: 16px;
+  border-bottom: 1px solid #F1F5F9;
+  font-size: 12px;
+  color: #0F172A;
+  vertical-align: middle;
+}
+
+.inventario-table tr:hover {
+  background-color: #F8FAFC;
+}
+
+.inventario-table tr.selected-row {
+  background-color: rgba(240, 253, 244, 0.50);
+}
+
+/* BADGES DE ESTADO OPERATIVO */
+.badge-operativo {
+  background-color: #F0FDF4;
+  color: #095223;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 9999px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.badge-mantenimiento {
+  background-color: #FEF2F2;
+  color: #BA1A1A;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 9999px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.badge-revision {
+  background-color: #B5DCFE;
+  color: #3B617E;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 9999px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.dot-status-green {
+  width: 6px;
+  height: 6px;
+  background-color: var(--sena-green, #39A900);
+  border-radius: 50%;
+}
+
+.dot-status-red {
+  width: 6px;
+  height: 6px;
+  background-color: #BA1A1A;
+  border-radius: 50%;
+}
+
+.dot-status-blue {
+  width: 6px;
+  height: 6px;
+  background-color: #3C627F;
+  border-radius: 50%;
+}
+
+/* BOTÓN FICHA EN TABLA */
+.btn-ver-ficha {
+  padding: 6px 12px;
+  background-color: #F1F5F9;
+  border: 1px solid #E2E8F0;
+  border-radius: 8px;
+  font-size: 11px;
+  font-weight: 500;
+  color: #3C627F;
+  cursor: pointer;
+}
+
+.btn-ver-ficha.active-ficha {
+  background-color: #FFFFFF;
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05);
+  font-weight: 600;
+}
+
+/* --------------------------------------------------------------------------
+   PANEL DE FICHA TÉCNICA LATERAL (DER)
+   -------------------------------------------------------------------------- */
+.ficha-tecnica-card {
+  background: #FFFFFF;
+  border-radius: 12px;
+  border: 1px solid #E2E8F0;
+  padding: 24px;
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.meta-protected-box {
+  background-color: #F1F5F9;
+  border: 1px solid #E5E7EB;
+  border-radius: 12px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.spec-grid-box {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  background-color: #E5E7EB;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid #E5E7EB;
+}
+
+.spec-row-item {
+  background-color: #FFFFFF;
+  padding: 8px 12px;
+  display: flex;
+  flex-direction: column;
+}
+
+.btn-guardar-registro {
+  height: 48px;
+  width: 100%;
+  background-color: var(--sena-green, #39A900);
+  color: #FFFFFF;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.btn-reportar-novedad-equipo {
+  height: 44px;
+  width: 100%;
+  background-color: #FEF2F2;
+  color: #BA1A1A;
+  border: none;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
