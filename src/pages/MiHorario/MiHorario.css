@@ -1,0 +1,475 @@
+/* ==========================================================================
+   NOVEDADSOFT - MI MALLA HORARIA (PURE CSS MODULAR)
+   ========================================================================== */
+
+.horario-layout-wrapper {
+  display: flex;
+  min-height: 100vh;
+  background-color: var(--bg-main, #F8FAFC);
+  font-family: var(--font-main, 'Inter', system-ui, sans-serif);
+  color: var(--text-primary, #0F172A);
+  position: relative;
+  overflow-x: hidden;
+}
+
+.horario-main-content {
+  flex: 1;
+  margin-left: 288px; /* Espacio para el Sidebar desktop */
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #F8FAFC;
+}
+
+@media (max-width: 1024px) {
+  .horario-main-content {
+    margin-left: 0;
+  }
+}
+
+/* TOPBAR INSTITUCIONAL SUPERIOR FLOTANTE */
+.horario-topbar {
+  height: 64px;
+  padding: 0 24px;
+  background: rgba(248, 249, 255, 0.85);
+  backdrop-filter: blur(24px);
+  border-bottom: 1px solid #E2E8F0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0px 1px 8px rgba(0, 0, 0, 0.04);
+}
+
+.topbar-breadcrumb-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #94A3B8;
+}
+
+.topbar-breadcrumb-active {
+  color: var(--sena-green-dark, #226D00);
+}
+
+.topbar-badge-sede {
+  background-color: #E5EEFF;
+  border-radius: 9999px;
+  padding: 4px 10px;
+  color: #0B1C30;
+  font-size: 12px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.topbar-status-active {
+  background-color: #F0FDF4;
+  border-radius: 9999px;
+  padding: 4px 10px;
+  color: #16A34A;
+  font-size: 11px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.status-green-dot {
+  width: 8px;
+  height: 8px;
+  background-color: #16A34A;
+  border-radius: 50%;
+}
+
+/* ÁREA PRINCIPAL DE CONTENIDO */
+.horario-body-container {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  max-width: 1280px;
+}
+
+/* 1. HEADER PRINCIPAL Y CARGA LECTIVA */
+.horario-header-card {
+  background: #FFFFFF;
+  border-radius: 12px;
+  border: 1px solid rgba(226, 232, 240, 0.80);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  justify-content: space-between;
+}
+
+@media (min-width: 768px) {
+  .horario-header-card {
+    flex-direction: row;
+    align-items: center;
+  }
+}
+
+.header-title-badge {
+  background-color: #ECFDF5;
+  border: 1px solid rgba(167, 243, 208, 0.60);
+  color: #065F46;
+  padding: 2px 10px;
+  border-radius: 9999px;
+  font-size: 12px;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.horario-main-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #0F172A;
+  margin: 4px 0 2px 0;
+}
+
+.horario-main-subtitle {
+  font-size: 14px;
+  color: #64748B;
+}
+
+.carga-lectiva-box {
+  background-color: #F8FAFC;
+  border: 1px solid rgba(226, 232, 240, 0.70);
+  border-radius: 8px;
+  padding: 8px 14px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.btn-green-action {
+  background-color: var(--sena-green, #39A900);
+  color: #FFFFFF;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 14px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: background-color 0.2s ease;
+}
+
+.btn-green-action:hover {
+  background-color: var(--sena-green-hover, #2f8b00);
+}
+
+.btn-outline-action {
+  background-color: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  color: #334155;
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btn-outline-action:hover {
+  background-color: #F8FAFC;
+}
+
+/* 2. BARRA DE CONTROLES Y FILTROS */
+.horario-controls-bar {
+  background: #FFFFFF;
+  border-radius: 12px;
+  border: 1px solid rgba(226, 232, 240, 0.80);
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  justify-content: space-between;
+}
+
+@media (min-width: 768px) {
+  .horario-controls-bar {
+    flex-direction: row;
+    align-items: center;
+  }
+}
+
+.select-custom-pill {
+  background-color: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #1E293B;
+  outline: none;
+  cursor: pointer;
+}
+
+.week-navigator-box {
+  background: #F8FAFC;
+  border: 1px solid rgba(226, 232, 240, 0.70);
+  border-radius: 8px;
+  padding: 2px;
+  display: flex;
+  align-items: center;
+}
+
+.nav-arrow-btn {
+  width: 28px;
+  height: 28px;
+  border-radius: 4px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #64748B;
+}
+
+.nav-arrow-btn:hover {
+  background-color: #E2E8F0;
+}
+
+/* 3. GRID SEMANAL (5 COLUMNAS DE DÍAS) */
+.horario-grid-week {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+}
+
+@media (min-width: 640px) {
+  .horario-grid-week {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1200px) {
+  .horario-grid-week {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+
+.day-column-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.day-header-pill {
+  background: #FFFFFF;
+  border-radius: 8px;
+  border: 1px solid rgba(226, 232, 240, 0.80);
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.day-header-pill.today-highlight {
+  background: rgba(236, 253, 245, 0.70);
+  border: 1px solid #A7F3D0;
+}
+
+/* TARJETAS DE CLASE (DESATURADAS Y LIMPIAS) */
+.session-card-clean {
+  background: #FFFFFF;
+  border-radius: 12px;
+  border: 1px solid rgba(226, 232, 240, 0.90);
+  padding: 14px;
+  min-height: 145px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+  position: relative;
+}
+
+.session-card-clean:hover {
+  transform: translateY(-2px);
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+.session-card-clean.in-progress {
+  border: 2px solid var(--sena-green, #39A900);
+}
+
+.corner-active-indicator {
+  position: absolute;
+  top: 0;
+  right: 12px;
+  width: 10px;
+  height: 10px;
+  background-color: var(--sena-green, #39A900);
+  border-bottom-left-radius: 2px;
+}
+
+.session-card-time {
+  font-size: 12px;
+  font-weight: 500;
+  color: #64748B;
+  line-height: 1.3;
+}
+
+.session-card-time.active-time {
+  color: var(--sena-green, #39A900);
+  font-weight: 700;
+}
+
+.session-card-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: #1E293B;
+  line-height: 1.35;
+}
+
+.session-card-footer {
+  padding-top: 8px;
+  border-top: 1px solid #F1F5F9;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ficha-tag-blue {
+  background-color: #EFF6FF;
+  color: #1D4ED8;
+  font-size: 11px;
+  font-weight: 500;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.ficha-tag-green {
+  background-color: #ECFDF5;
+  border: 1px solid #D1FAE5;
+  color: #065F46;
+  font-size: 11px;
+  font-weight: 500;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.location-text {
+  font-size: 11px;
+  color: #64748B;
+  text-align: right;
+  line-height: 1.3;
+}
+
+/* BANNER DE LEYENDA Y ESTADOS */
+.legend-footer-banner {
+  background: #FFFFFF;
+  border-radius: 12px;
+  border: 1px solid rgba(226, 232, 240, 0.80);
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  justify-content: space-between;
+}
+
+@media (min-width: 768px) {
+  .legend-footer-banner {
+    flex-direction: row;
+    align-items: center;
+  }
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: #334155;
+}
+
+/* --------------------------------------------------------------------------
+   DRAWER LATERAL DE DETALLE DE SESIÓN (420px SLIDE-OVER)
+   -------------------------------------------------------------------------- */
+.session-drawer-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(15, 23, 42, 0.30);
+  backdrop-filter: blur(2px);
+  z-index: 200;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.session-drawer-panel {
+  width: 100%;
+  max-width: 420px;
+  height: 100vh;
+  background-color: #FFFFFF;
+  box-shadow: -10px 0px 25px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  animation: slideInRight 0.25s ease-out;
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.drawer-header {
+  padding: 20px;
+  background: rgba(248, 250, 252, 0.80);
+  border-bottom: 1px solid #F1F5F9;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.drawer-close-btn {
+  background: transparent;
+  border: none;
+  font-size: 18px;
+  color: #94A3B8;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 6px;
+}
+
+.drawer-close-btn:hover {
+  background-color: #E2E8F0;
+  color: #0F172A;
+}
+
+.drawer-body {
+  padding: 20px;
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.drawer-footer-actions {
+  padding: 20px;
+  background: rgba(248, 250, 252, 0.80);
+  border-top: 1px solid #F1F5F9;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}

@@ -1,0 +1,557 @@
+/* ==========================================================================
+   NOVEDADSOFT - HISTORIAL DE REPORTES Y NOVEDADES (PURE CSS)
+   ========================================================================== */
+
+.historial-layout-wrapper {
+  display: flex;
+  min-height: 100vh;
+  background-color: #F8FAFC;
+  font-family: var(--font-main, 'Inter', system-ui, sans-serif);
+  color: var(--text-primary, #0F172A);
+}
+
+.historial-main-content {
+  flex: 1;
+  margin-left: 288px; /* Offset para Sidebar Desktop */
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #F8FAFC;
+}
+
+@media (max-width: 1024px) {
+  .historial-main-content {
+    margin-left: 0;
+  }
+}
+
+/* TOPBAR SUPERIOR */
+.historial-topbar {
+  height: 64px;
+  padding: 0 24px;
+  background: rgba(255, 255, 255, 0.90);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid #E2E8F0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0px 1px 8px rgba(0, 0, 0, 0.04);
+}
+
+.historial-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: #94A3B8;
+}
+
+.historial-breadcrumb-active {
+  color: #0B1C30;
+  font-weight: 500;
+}
+
+/* CUERPO DE CONTENIDO */
+.historial-body-container {
+  padding: 24px;
+  max-width: 1280px;
+  margin: 0 auto;
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* HEADER Y BOTONES DE ACCIÓN */
+.historial-header-row {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  justify-content: space-between;
+}
+
+@media (min-width: 768px) {
+  .historial-header-row {
+    flex-direction: row;
+    align-items: flex-end;
+  }
+}
+
+.mesa-ayuda-pill {
+  background-color: #DCE9FF;
+  color: #3C627F;
+  font-size: 11px;
+  font-weight: 500;
+  padding: 2px 10px;
+  border-radius: 9999px;
+  text-transform: uppercase;
+  letter-spacing: 0.55px;
+}
+
+.historial-title {
+  font-size: 28px;
+  font-weight: 600;
+  color: #0B1C30;
+  margin: 4px 0;
+}
+
+.historial-subtitle {
+  font-size: 14px;
+  color: #475569;
+  line-height: 1.4;
+}
+
+.action-buttons-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-export {
+  height: 40px;
+  padding: 0 16px;
+  background-color: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 8px;
+  color: #3C627F;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.btn-radicar-nueva {
+  height: 40px;
+  padding: 0 16px;
+  background-color: var(--sena-green, #39A900);
+  color: #FFFFFF;
+  border: none;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.btn-radicar-nueva:hover {
+  background-color: var(--sena-green-hover, #2f8b00);
+}
+
+/* 1. TARJETAS DE MÉTRICAS KPI (3 COLUMNAS) */
+.kpi-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 16px;
+}
+
+@media (min-width: 768px) {
+  .kpi-cards-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.kpi-card {
+  background: #FFFFFF;
+  border-radius: 12px;
+  border: 1px solid #E2E8F0;
+  padding: 16px;
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  min-height: 120px;
+}
+
+.kpi-title {
+  font-size: 11px;
+  font-weight: 500;
+  color: #94A3B8;
+  text-transform: uppercase;
+  letter-spacing: 0.55px;
+}
+
+.kpi-value {
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 1;
+  margin: 6px 0;
+}
+
+.kpi-foot-text {
+  font-size: 12px;
+  color: #475569;
+}
+
+.kpi-icon-box {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 2. FILTROS Y BUSCADOR */
+.filters-container-card {
+  background: #FFFFFF;
+  border-radius: 12px;
+  border: 1px solid #E2E8F0;
+  padding: 16px;
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.filters-top-row {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+@media (min-width: 768px) {
+  .filters-top-row {
+    flex-direction: row;
+    align-items: center;
+  }
+}
+
+.search-input-wrapper {
+  flex: 1;
+  position: relative;
+}
+
+.search-input {
+  width: 100%;
+  height: 44px;
+  padding: 0 16px 0 40px;
+  background-color: #F1F5F9;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  font-size: 14px;
+  color: #0B1C30;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.search-input:focus {
+  border-color: var(--sena-green, #39A900);
+  background-color: #FFFFFF;
+}
+
+.search-icon-pos {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #94A3B8;
+}
+
+.select-filter-pill {
+  height: 44px;
+  padding: 0 32px 0 12px;
+  background-color: #F1F5F9;
+  border: 1px solid #E2E8F0;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #0B1C30;
+  outline: none;
+  cursor: pointer;
+}
+
+/* TABS DE ESTADOS */
+.status-tabs-row {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+}
+
+.tab-pill {
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 11px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  border: none;
+  background-color: #F1F5F9;
+  color: #475569;
+  white-space: nowrap;
+}
+
+.tab-pill.active {
+  background-color: #0B1C30;
+  color: #FFFFFF;
+}
+
+.tab-count-badge {
+  background-color: #FFFFFF;
+  color: #475569;
+  font-size: 11px;
+  padding: 1px 6px;
+  border-radius: 9999px;
+}
+
+.tab-pill.active .tab-count-badge {
+  background-color: #E5EEFF;
+  color: #0B1C30;
+}
+
+/* 3. TABLA DE NOVEDADES */
+.table-card-container {
+  background: #FFFFFF;
+  border-radius: 12px;
+  border: 1px solid #E2E8F0;
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+}
+
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.novedades-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.novedades-table th {
+  background-color: #F1F5F9;
+  color: #475569;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.55px;
+  padding: 14px 16px;
+  border-bottom: 1px solid #E2E8F0;
+}
+
+.novedades-table td {
+  padding: 16px;
+  border-bottom: 1px solid #F1F5F9;
+  font-size: 12px;
+  color: #0B1C30;
+  vertical-align: top;
+}
+
+.novedades-table tr:hover {
+  background-color: #F8FAFC;
+}
+
+.novedades-table tr.selected-row {
+  background-color: rgba(220, 233, 255, 0.40);
+}
+
+/* BADGES DE ESTADO INSTITUCIONAL */
+.badge-status {
+  padding: 4px 10px;
+  border-radius: 9999px;
+  font-size: 11px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  letter-spacing: 0.33px;
+}
+
+.status-reparacion {
+  background-color: #D3E4FE;
+  color: #3C627F;
+}
+
+.status-evaluacion {
+  background-color: #B5DCFE;
+  color: #3B617E;
+}
+
+.status-resuelto {
+  background-color: #F0FDF4;
+  color: #095223;
+}
+
+.status-registrada {
+  background-color: #DCE9FF;
+  color: #3B617E;
+}
+
+.badge-impacto-bloqueante {
+  background-color: #FEF2F2;
+  color: #DC2626;
+  font-weight: 500;
+  padding: 2px 8px;
+  border-radius: 9999px;
+  font-size: 11px;
+}
+
+.badge-impacto-parcial {
+  background-color: #E5EEFF;
+  color: #3B617E;
+  font-weight: 500;
+  padding: 2px 8px;
+  border-radius: 9999px;
+  font-size: 11px;
+}
+
+.btn-table-action {
+  background-color: #F1F5F9;
+  border: 1px solid #E2E8F0;
+  border-radius: 8px;
+  padding: 6px 12px;
+  font-size: 11px;
+  font-weight: 500;
+  color: #475569;
+  cursor: pointer;
+}
+
+.btn-table-action.active-btn {
+  background-color: #3C627F;
+  color: #FFFFFF;
+  border-color: #3C627F;
+}
+
+/* PAGINACIÓN */
+.pagination-footer {
+  padding: 12px 16px;
+  background-color: rgba(241, 245, 249, 0.50);
+  border-top: 1px solid #E2E8F0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  color: #475569;
+}
+
+.pagination-pages {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.page-num-btn {
+  height: 32px;
+  padding: 0 12px;
+  border-radius: 8px;
+  border: 1px solid #E2E8F0;
+  background-color: #FFFFFF;
+  color: #0B1C30;
+  font-size: 11px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.page-num-btn.active {
+  background-color: var(--sena-green, #39A900);
+  color: #FFFFFF;
+  border-color: var(--sena-green, #39A900);
+}
+
+/* --------------------------------------------------------------------------
+   DRAWER LATERAL DE TRAZABILIDAD (DETALLE DE INCIDENCIA TÉCNICA)
+   -------------------------------------------------------------------------- */
+.trazabilidad-drawer-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(15, 23, 42, 0.30);
+  backdrop-filter: blur(2px);
+  z-index: 200;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.trazabilidad-drawer-panel {
+  width: 100%;
+  max-width: 400px;
+  height: 100vh;
+  background-color: #FFFFFF;
+  box-shadow: -10px 0px 25px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  animation: slideInRight 0.25s ease-out;
+}
+
+.trazabilidad-body {
+  padding: 20px;
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* TIMELINE VERTICAL DE TRAZABILIDAD */
+.timeline-container {
+  position: relative;
+  padding-left: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.timeline-line {
+  position: absolute;
+  left: 9px;
+  top: 8px;
+  bottom: 8px;
+  width: 2px;
+  background-color: #E2E8F0;
+}
+
+.timeline-item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.timeline-dot {
+  position: absolute;
+  left: -24px;
+  top: 2px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.timeline-dot.done {
+  background-color: #16A34A;
+  color: #FFFFFF;
+}
+
+.timeline-dot.current {
+  background-color: #3C627F;
+  color: #FFFFFF;
+}
+
+.timeline-dot.pending {
+  background-color: #E5EEFF;
+  border: 1px solid #94A3B8;
+}
+
+.diagnostic-box {
+  background-color: rgba(241, 245, 249, 0.80);
+  border-radius: 12px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
