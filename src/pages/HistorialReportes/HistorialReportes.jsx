@@ -1,10 +1,12 @@
 import React, { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Sidebar } from '../../components/common/Sidebar';
+import { useAlert } from '../../context/AlertContext/AlertContext';
 import './HistorialReportes.css';
 
 export const HistorialReportes = () => {
   const navigate = useNavigate();
+  const { showAlert } = useAlert();
 
   const [activeTab, setActiveTab] = useState('TODOS');
   const [searchTerm, setSearchTerm] = useState('');
@@ -13,6 +15,11 @@ export const HistorialReportes = () => {
 
   const [selectedNovedad, setSelectedNovedad] = useState(null);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+
+  // Estados para Añadir Nota por cada radicado
+  const [isAddingNote, setIsAddingNote] = useState(false);
+  const [noteText, setNoteText] = useState('');
+  const [notasPorRadicado, setNotasPorRadicado] = useState({});
 
   // Lista Completa de Radicados de Novedades
   const reportesMock = [
@@ -256,17 +263,156 @@ export const HistorialReportes = () => {
 
   const handleOpenDetail = (novedad) => {
     setSelectedNovedad(novedad);
+    setIsAddingNote(false);
+    setNoteText('');
     setIsDrawerOpen(true);
   };
 
   const handleCloseDrawer = () => {
     setIsDrawerOpen(false);
     setSelectedNovedad(null);
+    setIsAddingNote(false);
+    setNoteText('');
   };
 
   const handleRadicarNueva = () => {
     navigate('/instructor/verificar-ambiente');
   };
+
+  // GUARDAR NOTA DE SEGUIMIENTO
+  const handleSaveNote = (e) => {
+    e.preventDefault();
+    if (!noteText.trim()) {
+      showAlert({
+        title: 'Campo vacío',
+        message: 'Escribe una observación antes de guardar la nota.',
+        type: 'warning',
+      });
+      return;
+    }
+
+    const radicadoId = selectedNovedad.radicado;
+    const nuevaNota = {
+      id: Date.now(),
+      autor: 'Ing. Carlos Mendoza R.',
+      fecha: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+      texto: noteText.trim(),
+    };
+
+    setNotasPorRadicado((prev) => ({
+      ...prev,
+      [radicadoId]: [...(prev[radicadoId] || []), nuevaNota],
+    }));
+
+    setNoteText('');
+    setIsAddingNote(false);
+
+    showAlert({
+      title: 'Nota Registrada',
+      message: `Observación añadida correctamente al radicado ${radicadoId}.`,
+      type: 'success',
+    });
+  };
+
+  // EXPORTAR FICHA PDF DE LA INCIDENCIA
+  const handleExportFichaPDF = () => {
+    if (!selectedNovedad) return;
+
+    const notasActuales = notasPorRadicado[selectedNovedad.radicado] || [];
+    const notasHTML = notasActuales.length > 0
+      ? notasActuales.map((n) => `<li><strong>[${n.fecha}] ${n.autor}:</strong> ${n.texto}</li>`).join('')
+      : '<li>Sin notas adicionales registradas por el instructor.</li>';
+
+    const printWindow = window.open('', '_blank', 'width=850,height=900');
+    if (!printWindow) {
+      showAlert({
+        title: 'Ventana bloqueada',
+        message: 'Permite las ventanas emergentes en tu navegador para generar la Ficha PDF.',
+        type: 'warning',
+      });
+      return;
+    }
+
+    printWindow.document.write(`
+      <!DOCTYPE html>
+      <html>
+        <head>
+          <title>Ficha Técnica ${selectedNovedad.radicado} - NovedadSoft</title>
+          <style>
+            body { font-family: 'Segoe UI', Arial, sans-serif; padding: 40px; color: #0F172A; margin: 0; }
+            .header { border-bottom: 3px solid #39A900; padding-bottom: 16px; margin-bottom: 24px; display: flex; justify-content: space-between; align-items: center; }
+            .title { font-size: 20px; font-weight: 700; color: #0B1C30; margin: 0; }
+            .subtitle { font-size: 12px; color: #64748B; margin: 4px 0 0 0; }
+            .badge { background: #ECFDF5; color: #065F46; border: 1px solid #A7F3D0; padding: 6px 12px; border-radius: 6px; font-weight: 700; font-size: 13px; font-family: monospace; }
+            .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; background: #F8FAFC; padding: 18px; border-radius: 8px; border: 1px solid #E2E8F0; margin-bottom: 24px; }
+            .label { font-size: 10px; color: #64748B; text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px; }
+            .value { font-size: 14px; font-weight: 600; color: #0F172A; margin-top: 4px; }
+            .section-title { font-size: 12px; font-weight: 700; color: #3C627F; text-transform: uppercase; border-bottom: 1px solid #E2E8F0; padding-bottom: 6px; margin-top: 22px; margin-bottom: 10px; }
+            .box { background: #F8FAFC; border-left: 4px solid #3C627F; padding: 12px 16px; font-size: 13px; color: #1E293B; }
+            ul { padding-left: 18px; font-size: 13px; line-height: 1.6; color: #334155; }
+            .footer { margin-top: 50px; font-size: 11px; color: #94A3B8; text-align: center; border-top: 1px solid #E2E8F0; padding-top: 14px; }
+          </style>
+        </head>
+        <body>
+          <div class="header">
+            <div>
+              <h1 class="title">SENA CIDE Soacha • NovedadSoft</h1>
+              <p class="subtitle">Ficha Oficial de Trazabilidad e Incidencia Técnica</p>
+            </div>
+            <span class="badge">${selectedNovedad.radicado}</span>
+          </div>
+
+          <div class="grid">
+            <div>
+              <div class="label">Elemento / Activo</div>
+              <div class="value">${selectedNovedad.elemento}</div>
+            </div>
+            <div>
+              <div class="label">Placa Inventario SENA</div>
+              <div class="value">${selectedNovedad.placa}</div>
+            </div>
+            <div>
+              <div class="label">Ambiente / Ficha</div>
+              <div class="value">${selectedNovedad.ambiente} • Ficha ${selectedNovedad.ficha}</div>
+            </div>
+            <div>
+              <div class="label">Fecha y Hora de Radicación</div>
+              <div class="value">${selectedNovedad.fecha}</div>
+            </div>
+            <div>
+              <div class="label">Falla Reportada</div>
+              <div class="value">${selectedNovedad.falla}</div>
+            </div>
+            <div>
+              <div class="label">Estado / Impacto</div>
+              <div class="value">${selectedNovedad.estado} (${selectedNovedad.impacto})</div>
+            </div>
+          </div>
+
+          <div class="section-title">Diagnóstico Mesa de Ayuda CIDE TI</div>
+          <div class="box">
+            <p style="margin: 0 0 6px 0; font-style: italic;">"${selectedNovedad.diagnostico}"</p>
+            <div style="font-size: 12px; color: #64748B;">Técnico responsable: <strong>${selectedNovedad.tecnico}</strong> • SLA: ${selectedNovedad.sla}</div>
+          </div>
+
+          <div class="section-title">Notas y Seguimiento del Instructor</div>
+          <ul>${notasHTML}</ul>
+
+          <div class="footer">
+            Documento generado por NovedadSoft • Centro Industrial y de Desarrollo Empresarial (CIDE) Soacha - Regional Cundinamarca
+          </div>
+        </body>
+      </html>
+    `);
+
+    printWindow.document.close();
+    printWindow.focus();
+    setTimeout(() => {
+      printWindow.print();
+    }, 300);
+  };
+
+  const notasDeNovedadActual = selectedNovedad ? (notasPorRadicado[selectedNovedad.radicado] || []) : [];
 
   return (
     <div className="historial-layout-wrapper">
@@ -603,7 +749,7 @@ export const HistorialReportes = () => {
                   Radicado por: <strong>Ing. Carlos Mendoza R.</strong>
                 </div>
                 <div style={{ fontSize: '11px', color: '#94A3B8' }}>
-                  {selectedNovedad.fecha} - Sede CIDE Soacha
+                  {selectedNovedad.fecha} • Sede CIDE Soacha
                 </div>
               </div>
 
@@ -720,11 +866,77 @@ export const HistorialReportes = () => {
                   Técnico responsable: <strong>{selectedNovedad.tecnico}</strong>
                 </div>
               </div>
+
+              {/* LISTADO DE NOTAS AÑADIDAS POR EL INSTRUCTOR */}
+              {notasDeNovedadActual.length > 0 && (
+                <div style={{ padding: '12px', backgroundColor: '#F8FAFC', borderRadius: '8px', border: '1px solid #E2E8F0' }}>
+                  <div style={{ fontSize: '11px', fontWeight: '700', color: '#3C627F', marginBottom: '8px', textTransform: 'uppercase' }}>
+                    NOTAS DE SEGUIMIENTO ({notasDeNovedadActual.length})
+                  </div>
+                  {notasDeNovedadActual.map((nota) => (
+                    <div key={nota.id} style={{ fontSize: '12px', color: '#1E293B', paddingBottom: '8px', marginBottom: '8px', borderBottom: '1px solid #E2E8F0' }}>
+                      <div style={{ fontSize: '10px', color: '#64748B', fontWeight: '600' }}>
+                        {nota.autor} • {nota.fecha}
+                      </div>
+                      <div style={{ marginTop: '2px' }}>{nota.texto}</div>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {/* FORMULARIO DESPLEGABLE PARA AÑADIR NOTA */}
+              {isAddingNote && (
+                <form onSubmit={handleSaveNote} style={{ padding: '12px', backgroundColor: '#F0FDF4', borderRadius: '8px', border: '1px solid #BBF7D0' }}>
+                  <label style={{ fontSize: '11px', fontWeight: '700', color: '#065F46', display: 'block', marginBottom: '6px' }}>
+                    Nueva nota para {selectedNovedad.radicado}:
+                  </label>
+                  <textarea
+                    rows="3"
+                    value={noteText}
+                    onChange={(e) => setNoteText(e.target.value)}
+                    placeholder="Escribe una observación o actualización del caso..."
+                    style={{
+                      width: '100%',
+                      padding: '8px',
+                      borderRadius: '6px',
+                      border: '1px solid #CBD5E1',
+                      fontSize: '12px',
+                      boxSizing: 'border-box',
+                      resize: 'none',
+                      outline: 'none',
+                      fontFamily: 'inherit'
+                    }}
+                  />
+                  <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '8px', marginTop: '8px' }}>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setIsAddingNote(false);
+                        setNoteText('');
+                      }}
+                      style={{ padding: '6px 12px', fontSize: '12px', borderRadius: '6px', border: '1px solid #CBD5E1', background: '#FFFFFF', color: '#334155', cursor: 'pointer', fontWeight: '600' }}
+                    >
+                      Cancelar
+                    </button>
+                    <button
+                      type="submit"
+                      style={{ padding: '6px 12px', fontSize: '12px', borderRadius: '6px', border: 'none', background: '#39A900', color: '#FFFFFF', cursor: 'pointer', fontWeight: '600' }}
+                    >
+                      Guardar Nota
+                    </button>
+                  </div>
+                </form>
+              )}
             </div>
 
             {/* Footer del Drawer */}
             <div style={{ padding: '20px', borderTop: '1px solid #F1F5F9', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
-              <button className="btn-export" style={{ justifyContent: 'center', gap: '6px' }}>
+              <button 
+                type="button"
+                className="btn-export" 
+                style={{ justifyContent: 'center', gap: '6px' }}
+                onClick={handleExportFichaPDF}
+              >
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
                   <polyline points="14 2 14 8 20 8"/>
@@ -732,7 +944,12 @@ export const HistorialReportes = () => {
                 <span>Ficha PDF</span>
               </button>
 
-              <button className="btn-radicar-nueva" style={{ justifyContent: 'center', gap: '6px' }}>
+              <button 
+                type="button"
+                className="btn-radicar-nueva" 
+                style={{ justifyContent: 'center', gap: '6px' }}
+                onClick={() => setIsAddingNote((prev) => !prev)}
+              >
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
                   <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>

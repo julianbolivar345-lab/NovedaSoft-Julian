@@ -1,36 +1,47 @@
 /* ==========================================================================
-   NOVEDADSOFT - HISTORIAL DE REPORTES Y NOVEDADES (PURE CSS)
+   NOVEDADSOFT - HISTORIAL DE REPORTES Y NOVEDADES (PURE CSS OPTIMIZADO)
    ========================================================================== */
 
 .historial-layout-wrapper {
   display: flex;
   min-height: 100vh;
   background-color: #F8FAFC;
-  font-family: var(--font-main, 'Inter', system-ui, sans-serif);
+  font-family: var(--font-main, 'Inter', system-ui, -apple-system, sans-serif);
   color: var(--text-primary, #0F172A);
+  position: relative;
+  overflow-x: hidden;
 }
 
+/* CONTENEDOR PRINCIPAL: Flexbox vertical que abarca el área tras el Sidebar */
 .historial-main-content {
   flex: 1;
   margin-left: 288px; /* Offset para Sidebar Desktop */
+  width: calc(100% - 288px);
   display: flex;
   flex-direction: column;
+  align-items: center; /* Centra horizontalmente el cuerpo de la página */
   min-height: 100vh;
   background-color: #F8FAFC;
+  box-sizing: border-box;
 }
 
 @media (max-width: 1024px) {
   .historial-main-content {
     margin-left: 0;
+    width: 100%;
   }
 }
 
-/* TOPBAR SUPERIOR */
+/* ==========================================================================
+   TOPBAR SUPERIOR FLOTANTE (DE EXTREMO A EXTREMO, ORGANIZADA)
+   ========================================================================== */
 .historial-topbar {
+  width: 100%;
   height: 64px;
-  padding: 0 24px;
+  padding: 0 32px;
   background: rgba(255, 255, 255, 0.90);
-  backdrop-filter: blur(12px);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid #E2E8F0;
   display: flex;
   align-items: center;
@@ -38,32 +49,85 @@
   position: sticky;
   top: 0;
   z-index: 100;
-  box-shadow: 0px 1px 8px rgba(0, 0, 0, 0.04);
+  box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.03);
+  box-sizing: border-box;
 }
 
 .historial-breadcrumb {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
   font-size: 12px;
+  font-weight: 500;
   color: #94A3B8;
+  white-space: nowrap;
 }
 
 .historial-breadcrumb-active {
   color: #0B1C30;
-  font-weight: 500;
+  font-weight: 600;
 }
 
-/* CUERPO DE CONTENIDO */
+/* Contenedor derecho de insignias en Topbar */
+.historial-topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.topbar-status-pill {
+  background-color: #F0FDF4;
+  color: #095223;
+  padding: 4px 12px;
+  border-radius: 9999px;
+  font-size: 11px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid rgba(22, 163, 74, 0.15);
+}
+
+.topbar-sede-pill {
+  background-color: #F1F5F9;
+  color: #3C627F;
+  padding: 4px 12px;
+  border-radius: 9999px;
+  font-size: 11px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+}
+
+@media (max-width: 640px) {
+  .historial-topbar {
+    padding: 0 16px;
+    height: 56px;
+  }
+  .topbar-sede-pill {
+    display: none; /* Se oculta en móviles muy estrechos para mayor limpieza */
+  }
+}
+
+/* ==========================================================================
+   CUERPO DE CONTENIDO (CENTRADO EN PANTALLAS ANCHAS A 1280px)
+   ========================================================================== */
 .historial-body-container {
-  padding: 24px;
+  width: 100%;
   max-width: 1280px;
   margin: 0 auto;
-  width: 100%;
+  padding: 32px 24px 100px 24px;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
   gap: 24px;
+}
+
+@media (max-width: 640px) {
+  .historial-body-container {
+    padding: 20px 16px 80px 16px;
+    gap: 16px;
+  }
 }
 
 /* HEADER Y BOTONES DE ACCIÓN */
@@ -85,7 +149,7 @@
   background-color: #DCE9FF;
   color: #3C627F;
   font-size: 11px;
-  font-weight: 500;
+  font-weight: 600;
   padding: 2px 10px;
   border-radius: 9999px;
   text-transform: uppercase;
@@ -93,22 +157,37 @@
 }
 
 .historial-title {
-  font-size: 28px;
-  font-weight: 600;
+  font-size: 26px;
+  font-weight: 700;
   color: #0B1C30;
   margin: 4px 0;
+  letter-spacing: -0.02em;
 }
 
 .historial-subtitle {
   font-size: 14px;
   color: #475569;
   line-height: 1.4;
+  margin: 0;
 }
 
 .action-buttons-group {
   display: flex;
   align-items: center;
   gap: 8px;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 480px) {
+  .action-buttons-group {
+    width: 100%;
+    flex-direction: column;
+  }
+  .btn-export,
+  .btn-radicar-nueva {
+    width: 100%;
+    justify-content: center;
+  }
 }
 
 .btn-export {
@@ -124,7 +203,12 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05);
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.03);
+  transition: background-color 0.2s ease;
+}
+
+.btn-export:hover {
+  background-color: #F8FAFC;
 }
 
 .btn-radicar-nueva {
@@ -141,20 +225,29 @@
   align-items: center;
   gap: 8px;
   box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05);
+  transition: background-color 0.2s ease;
 }
 
 .btn-radicar-nueva:hover {
   background-color: var(--sena-green-hover, #2f8b00);
 }
 
-/* 1. TARJETAS DE MÉTRICAS KPI (3 COLUMNAS) */
+/* ==========================================================================
+   1. TARJETAS DE MÉTRICAS KPI (RESPONSIVAS)
+   ========================================================================== */
 .kpi-cards-grid {
   display: grid;
   grid-template-columns: repeat(1, 1fr);
   gap: 16px;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 640px) {
+  .kpi-cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
   .kpi-cards-grid {
     grid-template-columns: repeat(3, 1fr);
   }
@@ -164,24 +257,25 @@
   background: #FFFFFF;
   border-radius: 12px;
   border: 1px solid #E2E8F0;
-  padding: 16px;
-  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05);
+  padding: 20px;
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.04);
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  min-height: 120px;
+  min-height: 110px;
+  box-sizing: border-box;
 }
 
 .kpi-title {
   font-size: 11px;
-  font-weight: 500;
+  font-weight: 600;
   color: #94A3B8;
   text-transform: uppercase;
   letter-spacing: 0.55px;
 }
 
 .kpi-value {
-  font-size: 36px;
+  font-size: 32px;
   font-weight: 700;
   line-height: 1;
   margin: 6px 0;
@@ -199,15 +293,18 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
 }
 
-/* 2. FILTROS Y BUSCADOR */
+/* ==========================================================================
+   2. FILTROS Y BUSCADOR
+   ========================================================================== */
 .filters-container-card {
   background: #FFFFFF;
   border-radius: 12px;
   border: 1px solid #E2E8F0;
-  padding: 16px;
-  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05);
+  padding: 16px 20px;
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.04);
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -229,6 +326,7 @@
 .search-input-wrapper {
   flex: 1;
   position: relative;
+  width: 100%;
 }
 
 .search-input {
@@ -242,11 +340,13 @@
   color: #0B1C30;
   outline: none;
   box-sizing: border-box;
+  transition: all 0.2s ease;
 }
 
 .search-input:focus {
   border-color: var(--sena-green, #39A900);
   background-color: #FFFFFF;
+  box-shadow: 0px 0px 0px 3px rgba(57, 169, 0, 0.12);
 }
 
 .search-icon-pos {
@@ -255,6 +355,7 @@
   top: 50%;
   transform: translateY(-50%);
   color: #94A3B8;
+  pointer-events: none;
 }
 
 .select-filter-pill {
@@ -268,29 +369,41 @@
   color: #0B1C30;
   outline: none;
   cursor: pointer;
+  box-sizing: border-box;
 }
 
-/* TABS DE ESTADOS */
+/* TABS DE ESTADOS SCROLLABLES */
 .status-tabs-row {
   display: flex;
   gap: 8px;
   overflow-x: auto;
   padding-bottom: 4px;
+  -webkit-overflow-scrolling: touch;
+}
+
+.status-tabs-row::-webkit-scrollbar {
+  height: 4px;
+}
+
+.status-tabs-row::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+  border-radius: 4px;
 }
 
 .tab-pill {
-  padding: 6px 12px;
+  padding: 8px 14px;
   border-radius: 8px;
   font-size: 11px;
   font-weight: 500;
   cursor: pointer;
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
   border: none;
   background-color: #F1F5F9;
   color: #475569;
   white-space: nowrap;
+  transition: all 0.15s ease;
 }
 
 .tab-pill.active {
@@ -304,6 +417,7 @@
   font-size: 11px;
   padding: 1px 6px;
   border-radius: 9999px;
+  font-weight: 600;
 }
 
 .tab-pill.active .tab-count-badge {
@@ -311,12 +425,14 @@
   color: #0B1C30;
 }
 
-/* 3. TABLA DE NOVEDADES */
+/* ==========================================================================
+   3. TABLA DE NOVEDADES
+   ========================================================================== */
 .table-card-container {
   background: #FFFFFF;
   border-radius: 12px;
   border: 1px solid #E2E8F0;
-  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05);
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.04);
   overflow: hidden;
 }
 
@@ -329,6 +445,7 @@
   width: 100%;
   border-collapse: collapse;
   text-align: left;
+  min-width: 700px; /* Asegura scroll en celulares sin apretar datos */
 }
 
 .novedades-table th {
@@ -347,7 +464,7 @@
   border-bottom: 1px solid #F1F5F9;
   font-size: 12px;
   color: #0B1C30;
-  vertical-align: top;
+  vertical-align: middle;
 }
 
 .novedades-table tr:hover {
@@ -397,6 +514,7 @@
   padding: 2px 8px;
   border-radius: 9999px;
   font-size: 11px;
+  display: inline-block;
 }
 
 .badge-impacto-parcial {
@@ -406,6 +524,7 @@
   padding: 2px 8px;
   border-radius: 9999px;
   font-size: 11px;
+  display: inline-block;
 }
 
 .btn-table-action {
@@ -417,6 +536,10 @@
   font-weight: 500;
   color: #475569;
   cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: all 0.15s ease;
 }
 
 .btn-table-action.active-btn {
@@ -425,16 +548,24 @@
   border-color: #3C627F;
 }
 
-/* PAGINACIÓN */
+/* PAGINACIÓN RESPONSIVA */
 .pagination-footer {
-  padding: 12px 16px;
+  padding: 14px 20px;
   background-color: rgba(241, 245, 249, 0.50);
   border-top: 1px solid #E2E8F0;
   display: flex;
+  flex-direction: column;
+  gap: 12px;
   justify-content: space-between;
   align-items: center;
   font-size: 12px;
   color: #475569;
+}
+
+@media (min-width: 640px) {
+  .pagination-footer {
+    flex-direction: row;
+  }
 }
 
 .pagination-pages {
@@ -453,6 +584,7 @@
   font-size: 11px;
   font-weight: 500;
   cursor: pointer;
+  transition: all 0.15s ease;
 }
 
 .page-num-btn.active {
@@ -461,14 +593,14 @@
   border-color: var(--sena-green, #39A900);
 }
 
-/* --------------------------------------------------------------------------
+/* ==========================================================================
    DRAWER LATERAL DE TRAZABILIDAD (DETALLE DE INCIDENCIA TÉCNICA)
-   -------------------------------------------------------------------------- */
+   ========================================================================== */
 .trazabilidad-drawer-overlay {
   position: fixed;
   inset: 0;
-  background-color: rgba(15, 23, 42, 0.30);
-  backdrop-filter: blur(2px);
+  background-color: rgba(15, 23, 42, 0.35);
+  backdrop-filter: blur(3px);
   z-index: 200;
   display: flex;
   justify-content: flex-end;
@@ -476,7 +608,7 @@
 
 .trazabilidad-drawer-panel {
   width: 100%;
-  max-width: 400px;
+  max-width: 420px;
   height: 100vh;
   background-color: #FFFFFF;
   box-shadow: -10px 0px 25px rgba(0, 0, 0, 0.15);
@@ -484,6 +616,15 @@
   flex-direction: column;
   justify-content: space-between;
   animation: slideInRight 0.25s ease-out;
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
 }
 
 .trazabilidad-body {

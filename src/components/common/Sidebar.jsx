@@ -5,6 +5,7 @@ import './Sidebar.css';
 export const Sidebar = ({ activeMenu, userName = 'Ing. Carlos Mendoza R.', userRole = 'Instructor ADSO / Redes' }) => {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
+  const [showLogoutModal, setShowLogoutModal] = useState(false);
 
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
@@ -13,6 +14,11 @@ export const Sidebar = ({ activeMenu, userName = 'Ing. Carlos Mendoza R.', userR
   const handleNavigation = (path) => {
     navigate(path);
     setIsOpen(false);
+  };
+
+  const handleConfirmLogout = () => {
+    setShowLogoutModal(false);
+    handleNavigation('/login');
   };
 
   return (
@@ -141,7 +147,7 @@ export const Sidebar = ({ activeMenu, userName = 'Ing. Carlos Mendoza R.', userR
             </div>
           </div>
 
-          <button className="btn-logout" onClick={() => handleNavigation('/login')}>
+          <button className="btn-logout" onClick={() => setShowLogoutModal(true)}>
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#BA1A1A" strokeWidth="2">
               <path strokeLinecap="round" strokeLinejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
             </svg>
@@ -149,6 +155,41 @@ export const Sidebar = ({ activeMenu, userName = 'Ing. Carlos Mendoza R.', userR
           </button>
         </div>
       </aside>
+
+      {/* MODAL DE CONFIRMACIÓN DE CIERRE DE SESIÓN */}
+      {showLogoutModal && (
+        <div className="logout-modal-overlay" onClick={() => setShowLogoutModal(false)}>
+          <div className="logout-modal-card" onClick={(e) => e.stopPropagation()}>
+            <div className="logout-modal-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#BA1A1A" strokeWidth="2">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+              </svg>
+            </div>
+            
+            <h3 className="logout-modal-title">¿Cerrar sesión?</h3>
+            <p className="logout-modal-text">
+              ¿Estás seguro de que deseas salir de NovedaSoft?.
+            </p>
+
+            <div className="logout-modal-actions">
+              <button 
+                type="button"
+                className="btn-modal-cancel"
+                onClick={() => setShowLogoutModal(false)}
+              >
+                Cancelar
+              </button>
+              <button 
+                type="button"
+                className="btn-modal-confirm"
+                onClick={handleConfirmLogout}
+              >
+                Confirmar
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 };

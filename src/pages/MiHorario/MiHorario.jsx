@@ -90,27 +90,37 @@ export const MiHorario = () => {
             </div>
           </div>
 
-          {/* BARRA DE FILTROS Y CONTROLES */}
+     {/* BARRA DE FILTROS Y CONTROLES (3 COLUMNAS) */}
           <div className="horario-controls-bar">
-            <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
+            
+            {/* Columna 1: Trimestre */}
+            <div className="control-grid-item">
               <select className="select-custom-pill" defaultValue="t4">
                 <option value="t4">Trimestre IV - 2026 (Actual)</option>
+                <option value="t3">Trimestre III - 2026</option>
               </select>
+            </div>
 
+            {/* Columna 2: Jornada */}
+            <div className="control-grid-item">
+              <select className="select-custom-pill" defaultValue="todas">
+                <option value="todas">Jornada: Todas las franjas</option>
+                <option value="manana">Jornada Mañana</option>
+                <option value="tarde">Jornada Tarde</option>
+              </select>
+            </div>
+
+            {/* Columna 3: Semana */}
+            <div className="control-grid-item">
               <div className="week-navigator-box">
                 <button className="nav-arrow-btn">‹</button>
-                <span style={{ padding: '0 12px', fontSize: '12px', fontWeight: '600', color: '#1E293B' }}>
-                  Semana 43: 19 - 23 Octubre
+                <span className="week-navigator-text">
+                  Semana 43: 19 - 23 Oct
                 </span>
                 <button className="nav-arrow-btn">›</button>
               </div>
             </div>
 
-            <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
-              <select className="select-custom-pill" defaultValue="todas">
-                <option value="todas">Jornada: Todas las franjas</option>
-              </select>
-            </div>
           </div>
 
           {/* GRID SEMANAL (5 DÍAS) */}

@@ -1,5 +1,5 @@
 /* ==========================================================================
-   NOVEDADSOFT - VERIFICAR AMBIENTE (PURE CSS MODULAR)
+   NOVEDADSOFT - VERIFICAR AMBIENTE (PURE CSS MODULAR OPTIMIZADO)
    ========================================================================== */
 
 .verificar-layout-wrapper {
@@ -9,30 +9,49 @@
   width: 100%;
   font-family: var(--font-main, 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
   color: var(--text-primary, #0F172A);
+  position: relative;
+  overflow-x: hidden;
 }
 
+/* 1. ESTRUCTURA PRINCIPAL: Flexbox vertical tras el Sidebar */
 .verificar-main-content {
   flex: 1;
+  margin-left: 288px; /* Offset para el Sidebar Desktop */
+  width: calc(100% - 288px);
   display: flex;
   flex-direction: column;
-  margin-left: 288px;
-  font-family: var(--font-main, 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
-  transition: margin-left 0.3s ease;
+  align-items: center; /* OBLIGATORIO: Centra el contenido interno horizontalmente */
+  min-height: 100vh;
+  background-color: #F8F9FF;
+  box-sizing: border-box;
+  transition: margin-left 0.3s ease, width 0.3s ease;
 }
 
+@media (max-width: 1024px) {
+  .verificar-main-content {
+    margin-left: 0;
+    width: 100%;
+  }
+}
+
+/* ==========================================================================
+   TOPBAR SUPERIOR FLOTANTE (ESTIRADA A TODO LO LARGO)
+   ========================================================================== */
 .verificar-topbar {
+  width: 100%;
   height: 64px;
-  padding: 0 24px;
+  padding: 0 32px;
   background-color: rgba(255, 255, 255, 0.90);
   box-shadow: 0px 1px 8px rgba(0, 0, 0, 0.04);
   backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   display: flex;
   justify-content: space-between;
   align-items: center;
   position: sticky;
   top: 0;
-  z-index: 10;
-  font-family: var(--font-main, 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
+  z-index: 100;
+  box-sizing: border-box;
 }
 
 .verificar-breadcrumb {
@@ -41,38 +60,87 @@
   gap: 6px;
   font-size: 12px;
   color: #94A3B8;
-  font-family: var(--font-main, 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
+  white-space: nowrap;
 }
 
 .verificar-breadcrumb-active {
   color: #0B1C30;
   font-weight: 600;
-  font-family: var(--font-main, 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
 }
 
+/* Badges derechos organizados en la Topbar */
+.verificar-topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.topbar-status-badge {
+  background-color: #F0FDF4;
+  color: #16A34A;
+  padding: 4px 12px;
+  border-radius: 9999px;
+  font-size: 11px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid rgba(22, 163, 74, 0.15);
+}
+
+.topbar-location-badge {
+  background-color: #F1F5F9;
+  color: #3C627F;
+  padding: 4px 12px;
+  border-radius: 9999px;
+  font-size: 11px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+}
+
+@media (max-width: 640px) {
+  .verificar-topbar {
+    padding: 0 16px;
+    height: 56px;
+  }
+  .topbar-location-badge {
+    display: none; /* Se oculta en pantallas muy pequeñas para evitar saturación */
+  }
+}
+
+/* ==========================================================================
+   CUERPO DE CONTENIDO (CENTRADO EN PANTALLAS ANCHAS)
+   ========================================================================== */
 .verificar-body-container {
-  padding: 40px 24px 224px 24px;
-  max-width: 1024px;
   width: 100%;
+  max-width: 1024px;
   margin: 0 auto;
+  padding: 32px 24px 100px 24px;
   display: flex;
   flex-direction: column;
   gap: 24px;
   box-sizing: border-box;
-  font-family: var(--font-main, 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
 }
 
-/* Card Info */
+@media (max-width: 640px) {
+  .verificar-body-container {
+    padding: 20px 16px 80px 16px;
+    gap: 16px;
+  }
+}
+
+/* CARD INFO PRINCIPAL */
 .verificar-info-card {
   padding: 24px;
-  background-color: #F8FAFC;
-  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05);
+  background-color: #FFFFFF;
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.04);
   border-radius: 16px;
   border: 1px solid #E2E8F0;
   display: flex;
   flex-direction: column;
   gap: 16px;
-  font-family: var(--font-main, 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
+  box-sizing: border-box;
 }
 
 .verificar-card-header {
@@ -81,6 +149,7 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
+  gap: 12px;
 }
 
 .session-pill {
@@ -94,7 +163,6 @@
   font-size: 11px;
   font-weight: 600;
   width: fit-content;
-  font-family: var(--font-main, 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
 }
 
 .verificar-title {
@@ -103,7 +171,6 @@
   font-weight: 700;
   margin: 4px 0 0 0;
   line-height: 1.2;
-  font-family: var(--font-main, 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
 }
 
 .jornada-badge {
@@ -113,44 +180,55 @@
   border-radius: 8px;
   border: 1px solid #E2E8F0;
   color: #475569;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 600;
-  font-family: var(--font-main, 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
+  white-space: nowrap;
 }
 
+/* METADATOS RESPONSIVOS (4 COLUMNAS) */
 .verificar-meta-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(1, 1fr);
   gap: 16px;
+}
+
+@media (min-width: 520px) {
+  .verificar-meta-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 850px) {
+  .verificar-meta-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
 }
 
 .meta-item {
   display: flex;
   align-items: center;
   gap: 8px;
-  font-family: var(--font-main, 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
 }
 
 .meta-label {
   color: #94A3B8;
   font-size: 11px;
   font-weight: 500;
-  font-family: var(--font-main, 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
 }
 
 .meta-value {
   color: #0F172A;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 600;
-  font-family: var(--font-main, 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
 }
 
-/* Recursos */
+/* ==========================================================================
+   RECURSOS DEL AMBIENTE (4 COLUMNAS ADAPTATIVAS)
+   ========================================================================== */
 .verificar-recursos-section {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  font-family: var(--font-main, 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
+  gap: 12px;
 }
 
 .recursos-header {
@@ -164,85 +242,103 @@
   font-size: 12px;
   font-weight: 600;
   letter-spacing: 0.6px;
-  font-family: var(--font-main, 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
+  text-transform: uppercase;
 }
 
 .recursos-count {
   color: #94A3B8;
   font-size: 11px;
   font-weight: 500;
-  font-family: var(--font-main, 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
 }
 
 .recursos-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(1, 1fr);
   gap: 12px;
+}
+
+@media (min-width: 480px) {
+  .recursos-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 850px) {
+  .recursos-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
 }
 
 .recurso-card {
   padding: 14px;
-  background: white;
-  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05);
+  background: #FFFFFF;
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.04);
   border-radius: 12px;
   border: 1px solid #E2E8F0;
   display: flex;
   align-items: center;
   gap: 12px;
-  font-family: var(--font-main, 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
+  box-sizing: border-box;
 }
 
 .recurso-icon-box {
-  width: 36px;
-  height: 36px;
+  width: 38px;
+  height: 38px;
   background: #F1F5F9;
   border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
 }
 
 .recurso-num {
   color: #0F172A;
   font-size: 14px;
   font-weight: 700;
-  font-family: var(--font-main, 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
 }
 
 .recurso-name {
   color: #475569;
   font-size: 11px;
   font-weight: 500;
-  font-family: var(--font-main, 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
 }
 
-/* Acciones Grid */
+/* ==========================================================================
+   ACCIONES PRINCIPALES (2 TARJETAS)
+   ========================================================================== */
 .verificar-actions-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 24px;
-  font-family: var(--font-main, 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+@media (min-width: 768px) {
+  .verificar-actions-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
 }
 
 .action-card {
-  padding: 40px;
-  background: white;
-  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05);
+  padding: 32px 24px;
+  background: #FFFFFF;
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.04);
   border-radius: 16px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
   text-align: center;
-  font-family: var(--font-main, 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
+  box-sizing: border-box;
 }
 
 .action-card-conforme {
-  border: 2px solid rgba(57, 169, 0, 0.30);
+  border: 2px solid rgba(57, 169, 0, 0.35);
 }
 
 .action-card-falla {
-  border: 2px solid rgba(220, 38, 38, 0.30);
+  border: 2px solid rgba(220, 38, 38, 0.35);
 }
 
 .action-card-content {
@@ -253,9 +349,9 @@
 }
 
 .action-icon-wrapper {
-  width: 80px;
-  height: 80px;
-  border-radius: 9999px;
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -264,46 +360,43 @@
 
 .conforme-icon {
   background: #F0FDF4;
-  border: 1px solid rgba(167, 243, 208, 0.40);
+  border: 1px solid rgba(167, 243, 208, 0.60);
 }
 
 .falla-icon {
   background: #FEF2F2;
-  border: 1px solid rgba(186, 26, 26, 0.20);
+  border: 1px solid rgba(254, 202, 202, 0.60);
 }
 
 .action-title {
   color: #0F172A;
-  font-size: 22px;
+  font-size: 20px;
   font-weight: 700;
   margin: 0 0 8px 0;
-  font-family: var(--font-main, 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
 }
 
 .action-desc {
   color: #475569;
-  font-size: 14px;
-  line-height: 1.6;
+  font-size: 13px;
+  line-height: 1.5;
   margin: 0;
-  font-family: var(--font-main, 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
 }
 
 .btn-action-conforme {
   width: 100%;
-  margin-top: 32px;
-  padding: 14px 24px;
+  margin-top: 24px;
+  padding: 12px 20px;
   background: #39A900;
   color: white;
   border: none;
-  border-radius: 12px;
-  font-size: 14px;
+  border-radius: 10px;
+  font-size: 13px;
   font-weight: 600;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  font-family: var(--font-main, 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
   transition: background-color 0.2s ease;
 }
 
@@ -313,41 +406,22 @@
 
 .btn-action-falla {
   width: 100%;
-  margin-top: 32px;
-  padding: 14px 24px;
+  margin-top: 24px;
+  padding: 12px 20px;
   background: #DC2626;
   color: white;
   border: none;
-  border-radius: 12px;
-  font-size: 14px;
+  border-radius: 10px;
+  font-size: 13px;
   font-weight: 600;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  font-family: var(--font-main, 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
   transition: background-color 0.2s ease;
 }
 
 .btn-action-falla:hover {
   background: #b91c1c;
-}
-
-/* Ajuste Responsivo para Dispositivos Móviles */
-@media (max-width: 768px) {
-  .verificar-main-content {
-    margin-left: 0;
-    padding-top: 48px;
-  }
-
-  .verificar-meta-grid,
-  .recursos-grid,
-  .verificar-actions-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .verificar-body-container {
-    padding: 20px 16px 80px 16px;
-  }
 }

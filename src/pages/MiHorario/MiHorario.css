@@ -1,38 +1,47 @@
 /* ==========================================================================
-   NOVEDADSOFT - MI MALLA HORARIA (PURE CSS MODULAR)
+   NOVEDADSOFT - MI MALLA HORARIA (PURE CSS MODULAR UNIFICADO Y CORREGIDO)
    ========================================================================== */
 
 .horario-layout-wrapper {
   display: flex;
   min-height: 100vh;
   background-color: var(--bg-main, #F8FAFC);
-  font-family: var(--font-main, 'Inter', system-ui, sans-serif);
+  font-family: var(--font-main, 'Inter', system-ui, -apple-system, sans-serif);
   color: var(--text-primary, #0F172A);
   position: relative;
   overflow-x: hidden;
 }
 
+/* CONTENEDOR PRINCIPAL */
 .horario-main-content {
   flex: 1;
-  margin-left: 288px; /* Espacio para el Sidebar desktop */
+  margin-left: 288px;
+  width: calc(100% - 288px);
   display: flex;
   flex-direction: column;
+  align-items: center;
   min-height: 100vh;
   background-color: #F8FAFC;
+  box-sizing: border-box;
 }
 
 @media (max-width: 1024px) {
   .horario-main-content {
     margin-left: 0;
+    width: 100%;
   }
 }
 
-/* TOPBAR INSTITUCIONAL SUPERIOR FLOTANTE */
+/* ==========================================================================
+   TOPBAR INSTITUCIONAL SUPERIOR FLOTANTE
+   ========================================================================== */
 .horario-topbar {
+  width: 100%;
   height: 64px;
-  padding: 0 24px;
-  background: rgba(248, 249, 255, 0.85);
-  backdrop-filter: blur(24px);
+  padding: 0 32px;
+  background: rgba(255, 255, 255, 0.90);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid #E2E8F0;
   display: flex;
   align-items: center;
@@ -40,7 +49,8 @@
   position: sticky;
   top: 0;
   z-index: 100;
-  box-shadow: 0px 1px 8px rgba(0, 0, 0, 0.04);
+  box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.03);
+  box-sizing: border-box;
 }
 
 .topbar-breadcrumb-group {
@@ -48,31 +58,40 @@
   align-items: center;
   gap: 8px;
   font-size: 12px;
-  font-weight: 600;
+  font-weight: 500;
   color: #94A3B8;
+  white-space: nowrap;
 }
 
 .topbar-breadcrumb-active {
   color: var(--sena-green-dark, #226D00);
+  font-weight: 600;
 }
 
-.topbar-badge-sede {
-  background-color: #E5EEFF;
-  border-radius: 9999px;
-  padding: 4px 10px;
-  color: #0B1C30;
-  font-size: 12px;
-  font-weight: 600;
+.horario-topbar-right {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 12px;
 }
 
 .topbar-status-active {
   background-color: #F0FDF4;
   border-radius: 9999px;
-  padding: 4px 10px;
+  padding: 4px 12px;
   color: #16A34A;
+  font-size: 11px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid rgba(22, 163, 74, 0.15);
+}
+
+.topbar-badge-sede {
+  background-color: #F1F5F9;
+  border-radius: 9999px;
+  padding: 4px 12px;
+  color: #3C627F;
   font-size: 11px;
   font-weight: 500;
   display: flex;
@@ -85,15 +104,38 @@
   height: 8px;
   background-color: #16A34A;
   border-radius: 50%;
+  flex-shrink: 0;
 }
 
-/* ÁREA PRINCIPAL DE CONTENIDO */
+@media (max-width: 640px) {
+  .horario-topbar {
+    padding: 0 16px;
+    height: 56px;
+  }
+  .topbar-badge-sede {
+    display: none;
+  }
+}
+
+/* ==========================================================================
+   ÁREA PRINCIPAL DE CONTENIDO
+   ========================================================================== */
 .horario-body-container {
-  padding: 24px;
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 32px 24px 100px 24px;
   display: flex;
   flex-direction: column;
   gap: 24px;
-  max-width: 1280px;
+  box-sizing: border-box;
+}
+
+@media (max-width: 640px) {
+  .horario-body-container {
+    padding: 20px 16px 80px 16px;
+    gap: 16px;
+  }
 }
 
 /* 1. HEADER PRINCIPAL Y CARGA LECTIVA */
@@ -187,64 +229,99 @@
   background-color: #F8FAFC;
 }
 
-/* 2. BARRA DE CONTROLES Y FILTROS */
+/* ==========================================================================
+   2. BARRA DE CONTROLES Y FILTROS (GRID DE 3 COLUMNAS)
+   ========================================================================== */
 .horario-controls-bar {
   background: #FFFFFF;
   border-radius: 12px;
   border: 1px solid rgba(226, 232, 240, 0.80);
-  padding: 12px;
-  display: flex;
-  flex-direction: column;
+  padding: 16px;
+  display: grid;
+  grid-template-columns: 1fr; /* En celular: 1 columna limpia */
   gap: 12px;
-  justify-content: space-between;
+  width: 100%;
+  box-sizing: border-box;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 900px) {
   .horario-controls-bar {
-    flex-direction: row;
+    grid-template-columns: repeat(3, 1fr); /* En PC: 3 columnas exactas */
     align-items: center;
   }
 }
 
+.control-grid-item {
+  width: 100%;
+  min-width: 0; /* Evita que el contenido desborde la columna */
+}
+
+/* SELECTORES DESPLEGABLES */
 .select-custom-pill {
   background-color: #F8FAFC;
   border: 1px solid #E2E8F0;
   border-radius: 8px;
-  padding: 8px 12px;
-  font-size: 12px;
+  padding: 0 32px 0 12px;
+  font-size: 13px;
   font-weight: 600;
   color: #1E293B;
   outline: none;
   cursor: pointer;
+  height: 42px;
+  width: 100%;
+  box-sizing: border-box;
+  text-overflow: ellipsis;
 }
 
+/* NAVEGADOR DE SEMANA */
 .week-navigator-box {
   background: #F8FAFC;
-  border: 1px solid rgba(226, 232, 240, 0.70);
+  border: 1px solid #E2E8F0;
   border-radius: 8px;
-  padding: 2px;
+  padding: 4px 8px;
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  height: 42px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.week-navigator-text {
+  font-size: 12px;
+  font-weight: 600;
+  color: #0F172A;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: center;
 }
 
 .nav-arrow-btn {
   width: 28px;
   height: 28px;
-  border-radius: 4px;
-  border: none;
-  background: transparent;
+  border-radius: 6px;
+  border: 1px solid #E2E8F0;
+  background: #FFFFFF;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   color: #64748B;
+  flex-shrink: 0;
+  font-weight: bold;
+  transition: all 0.15s ease;
 }
 
 .nav-arrow-btn:hover {
-  background-color: #E2E8F0;
+  background-color: #F1F5F9;
+  color: #0F172A;
 }
 
-/* 3. GRID SEMANAL (5 COLUMNAS DE DÍAS) */
+/* ==========================================================================
+   3. GRID SEMANAL (5 COLUMNAS DE DÍAS ADAPTATIVAS)
+   ========================================================================== */
 .horario-grid-week {
   display: grid;
   grid-template-columns: 1fr;
@@ -284,7 +361,7 @@
   border: 1px solid #A7F3D0;
 }
 
-/* TARJETAS DE CLASE (DESATURADAS Y LIMPIAS) */
+/* TARJETAS DE CLASE */
 .session-card-clean {
   background: #FFFFFF;
   border-radius: 12px;
@@ -371,7 +448,7 @@
   line-height: 1.3;
 }
 
-/* BANNER DE LEYENDA Y ESTADOS */
+/* BANNER DE LEYENDA */
 .legend-footer-banner {
   background: #FFFFFF;
   border-radius: 12px;
@@ -398,14 +475,12 @@
   color: #334155;
 }
 
-/* --------------------------------------------------------------------------
-   DRAWER LATERAL DE DETALLE DE SESIÓN (420px SLIDE-OVER)
-   -------------------------------------------------------------------------- */
+/* DRAWER LATERAL */
 .session-drawer-overlay {
   position: fixed;
   inset: 0;
-  background-color: rgba(15, 23, 42, 0.30);
-  backdrop-filter: blur(2px);
+  background-color: rgba(15, 23, 42, 0.35);
+  backdrop-filter: blur(3px);
   z-index: 200;
   display: flex;
   justify-content: flex-end;

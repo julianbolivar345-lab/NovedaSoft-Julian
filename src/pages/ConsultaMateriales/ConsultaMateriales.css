@@ -1,36 +1,47 @@
 /* ==========================================================================
-   NOVEDADSOFT - CONSULTA DE MATERIALES Y BIENES (PURE CSS)
+   NOVEDADSOFT - CONSULTA DE MATERIALES Y BIENES (PURE CSS OPTIMIZADO)
    ========================================================================== */
 
 .consulta-layout-wrapper {
   display: flex;
   min-height: 100vh;
   background-color: #F8FAFC;
-  font-family: var(--font-main, 'Inter', system-ui, sans-serif);
+  font-family: var(--font-main, 'Inter', system-ui, -apple-system, sans-serif);
   color: var(--text-primary, #0F172A);
+  position: relative;
+  overflow-x: hidden;
 }
 
+/* CONTENEDOR PRINCIPAL: Flexbox vertical que abarca el área tras el Sidebar */
 .consulta-main-content {
   flex: 1;
   margin-left: 288px; /* Offset para el Sidebar Desktop */
+  width: calc(100% - 288px);
   display: flex;
   flex-direction: column;
+  align-items: center; /* OBLIGATORIO: Centra horizontalmente el cuerpo */
   min-height: 100vh;
   background-color: #F8FAFC;
+  box-sizing: border-box;
 }
 
 @media (max-width: 1024px) {
   .consulta-main-content {
     margin-left: 0;
+    width: 100%;
   }
 }
 
-/* TOPBAR SUPERIOR FLOTANTE */
+/* ==========================================================================
+   TOPBAR SUPERIOR FLOTANTE (DE EXTREMO A EXTREMO, ORGANIZADA)
+   ========================================================================== */
 .consulta-topbar {
+  width: 100%;
   height: 64px;
-  padding: 0 24px;
+  padding: 0 32px;
   background: rgba(255, 255, 255, 0.90);
-  backdrop-filter: blur(12px);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid #E2E8F0;
   display: flex;
   align-items: center;
@@ -38,32 +49,85 @@
   position: sticky;
   top: 0;
   z-index: 100;
-  box-shadow: 0px 1px 8px rgba(0, 0, 0, 0.04);
+  box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.03);
+  box-sizing: border-box;
 }
 
 .consulta-breadcrumb {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
   font-size: 12px;
+  font-weight: 500;
   color: #94A3B8;
+  white-space: nowrap;
 }
 
 .consulta-breadcrumb-active {
   color: #0B1C30;
-  font-weight: 500;
+  font-weight: 600;
 }
 
-/* CONTENEDOR PRINCIPAL */
+/* Insignias alineadas a la derecha de la Topbar */
+.consulta-topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.topbar-status-pill {
+  background-color: #F0FDF4;
+  color: #095223;
+  padding: 4px 12px;
+  border-radius: 9999px;
+  font-size: 11px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid rgba(22, 163, 74, 0.15);
+}
+
+.topbar-sede-pill {
+  background-color: #F1F5F9;
+  color: #3C627F;
+  padding: 4px 12px;
+  border-radius: 9999px;
+  font-size: 11px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+}
+
+@media (max-width: 640px) {
+  .consulta-topbar {
+    padding: 0 16px;
+    height: 56px;
+  }
+  .topbar-sede-pill {
+    display: none; /* Oculta la sede en móviles pequeños para evitar desbordes */
+  }
+}
+
+/* ==========================================================================
+   CONTENEDOR DEL CUERPO (CENTRADO EN PANTALLAS ANCHAS A 1280px)
+   ========================================================================== */
 .consulta-body-container {
-  padding: 24px;
+  width: 100%;
   max-width: 1280px;
   margin: 0 auto;
-  width: 100%;
+  padding: 32px 24px 100px 24px;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
   gap: 24px;
+}
+
+@media (max-width: 640px) {
+  .consulta-body-container {
+    padding: 20px 16px 80px 16px;
+    gap: 16px;
+  }
 }
 
 /* HEADER Y BOTONES DE ACCIÓN */
@@ -96,16 +160,18 @@
 }
 
 .consulta-title {
-  font-size: 28px;
-  font-weight: 600;
+  font-size: 26px;
+  font-weight: 700;
   color: #0F172A;
   margin: 4px 0;
+  letter-spacing: -0.02em;
 }
 
 .consulta-subtitle {
   font-size: 14px;
   color: #475569;
   line-height: 1.4;
+  margin: 0;
 }
 
 .ambient-selector-box {
@@ -116,7 +182,7 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05);
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.03);
 }
 
 .btn-export-excel {
@@ -126,16 +192,23 @@
   border: 1px solid #E2E8F0;
   border-radius: 8px;
   color: #0B1C30;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 600;
   cursor: pointer;
   display: flex;
   align-items: center;
   gap: 8px;
-  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05);
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.03);
+  transition: background-color 0.2s ease;
 }
 
-/* BARRA DE BÚSQUEDA Y PESTAÑAS DE CATEGORÍA */
+.btn-export-excel:hover {
+  background-color: #F8FAFC;
+}
+
+/* ==========================================================================
+   BARRA DE BÚSQUEDA Y PESTAÑAS DE CATEGORÍA
+   ========================================================================== */
 .search-filter-section {
   display: flex;
   flex-direction: column;
@@ -150,20 +223,22 @@
 
 .search-input-field {
   width: 100%;
-  height: 48px;
+  height: 44px;
   padding: 0 16px 0 44px;
   background-color: #FFFFFF;
   border: 1px solid #E2E8F0;
-  border-radius: 12px;
+  border-radius: 10px;
   font-size: 14px;
   color: #0F172A;
-  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05);
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.03);
   outline: none;
   box-sizing: border-box;
+  transition: all 0.2s ease;
 }
 
 .search-input-field:focus {
   border-color: var(--sena-green, #39A900);
+  box-shadow: 0px 0px 0px 3px rgba(57, 169, 0, 0.12);
 }
 
 .category-tabs-wrapper {
@@ -171,6 +246,16 @@
   gap: 8px;
   overflow-x: auto;
   padding-bottom: 4px;
+  -webkit-overflow-scrolling: touch;
+}
+
+.category-tabs-wrapper::-webkit-scrollbar {
+  height: 4px;
+}
+
+.category-tabs-wrapper::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+  border-radius: 4px;
 }
 
 .cat-tab-btn {
@@ -187,7 +272,12 @@
   align-items: center;
   gap: 8px;
   white-space: nowrap;
-  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05);
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.03);
+  transition: all 0.15s ease;
+}
+
+.cat-tab-btn:hover {
+  background-color: #F8FAFC;
 }
 
 .cat-tab-btn.active {
@@ -210,7 +300,9 @@
   color: #FFFFFF;
 }
 
-/* ESTRUCTURA PRINCIPAL DE 2 COLUMNAS (TABLA + FICHA FICHA) */
+/* ==========================================================================
+   GRID PRINCIPAL DE 2 COLUMNAS (TABLA + FICHA TÉCNICA)
+   ========================================================================== */
 .inventory-grid-container {
   display: grid;
   grid-template-columns: 1fr;
@@ -228,14 +320,14 @@
   background: #FFFFFF;
   border-radius: 12px;
   border: 1px solid #E2E8F0;
-  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05);
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.04);
   overflow: hidden;
   display: flex;
   flex-direction: column;
 }
 
 .inventory-table-header {
-  padding: 16px 24px;
+  padding: 16px 20px;
   background-color: rgba(241, 245, 249, 0.50);
   border-bottom: 1px solid #E2E8F0;
   display: flex;
@@ -247,6 +339,7 @@
   width: 100%;
   border-collapse: collapse;
   text-align: left;
+  min-width: 600px; /* Scroll horizontal automático en celulares */
 }
 
 .inventario-table th {
@@ -273,7 +366,7 @@
 }
 
 .inventario-table tr.selected-row {
-  background-color: rgba(240, 253, 244, 0.50);
+  background-color: rgba(240, 253, 244, 0.60);
 }
 
 /* BADGES DE ESTADO OPERATIVO */
@@ -344,23 +437,25 @@
   font-weight: 500;
   color: #3C627F;
   cursor: pointer;
+  transition: all 0.15s ease;
 }
 
 .btn-ver-ficha.active-ficha {
   background-color: #FFFFFF;
   box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05);
   font-weight: 600;
+  border-color: #CBD5E1;
 }
 
-/* --------------------------------------------------------------------------
-   PANEL DE FICHA TÉCNICA LATERAL (DER)
-   -------------------------------------------------------------------------- */
+/* ==========================================================================
+   PANEL DE FICHA TÉCNICA LATERAL (DERECHA)
+   ========================================================================== */
 .ficha-tecnica-card {
   background: #FFFFFF;
   border-radius: 12px;
   border: 1px solid #E2E8F0;
   padding: 24px;
-  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05);
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.04);
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -394,13 +489,13 @@
 }
 
 .btn-guardar-registro {
-  height: 48px;
+  height: 44px;
   width: 100%;
   background-color: var(--sena-green, #39A900);
   color: #FFFFFF;
   border: none;
   border-radius: 8px;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 600;
   cursor: pointer;
   display: flex;
@@ -408,6 +503,11 @@
   justify-content: center;
   gap: 8px;
   box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05);
+  transition: background-color 0.2s ease;
+}
+
+.btn-guardar-registro:hover {
+  background-color: var(--sena-green-hover, #2f8b00);
 }
 
 .btn-reportar-novedad-equipo {
@@ -424,4 +524,90 @@
   align-items: center;
   justify-content: center;
   gap: 8px;
+  transition: background-color 0.2s ease;
+}
+
+.btn-reportar-novedad-equipo:hover {
+  background-color: #FEE2E2;
+}
+/* ==========================================================================
+   AJUSTES RESPONSIVOS MÓVIL - CONSULTA DE MATERIALES
+   ========================================================================== */
+
+@media (max-width: 768px) {
+  .consulta-topbar {
+    height: auto;
+    min-height: 56px;
+    padding: 8px 16px;
+    gap: 12px;
+  }
+
+  .consulta-breadcrumb {
+    font-size: 11px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 60vw;
+  }
+
+  .consulta-header-row {
+    gap: 12px;
+  }
+
+  .consulta-title {
+    font-size: 20px;
+    line-height: 1.25;
+  }
+
+  .consulta-subtitle {
+    font-size: 13px;
+  }
+
+  .consulta-header-actions-mobile {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+  }
+
+  .ambient-selector-box {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .btn-export-excel {
+    width: 100%;
+    justify-content: center;
+    height: 44px;
+  }
+
+  .search-filter-row-mobile {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+  }
+
+  .search-input-box {
+    max-width: 100%;
+  }
+
+  .sort-filter-box-mobile {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    width: 100%;
+  }
+
+  .sort-filter-box-mobile select {
+    width: 100%;
+    height: 42px;
+  }
+
+  .inventory-table-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 14px 16px;
+  }
 }

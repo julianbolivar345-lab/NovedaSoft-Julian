@@ -53,6 +53,7 @@ export const ReportarNovedadForm = () => {
         userName="Ing. Carlos Mendoza R." 
         userRole="Instructor ADSO / Redes" 
       />
+    
 
       {/* 2. ÁREA PRINCIPAL */}
       <main className="report-form-main">

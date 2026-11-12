@@ -6,31 +6,42 @@
   display: flex;
   min-height: 100vh;
   background-color: #F8FAFC;
-  font-family: var(--font-main, 'Inter', system-ui, sans-serif);
+  font-family: var(--font-main, 'Inter', system-ui, -apple-system, sans-serif);
   color: var(--text-primary, #0F172A);
+  position: relative;
+  overflow-x: hidden;
 }
 
+/* CONTENEDOR PRINCIPAL: Flexbox vertical que abarca el área disponible tras el Sidebar */
 .report-form-main {
   flex: 1;
   margin-left: 288px; /* Offset para el Sidebar Desktop */
+  width: calc(100% - 288px);
   display: flex;
   flex-direction: column;
+  align-items: center; /* Centra horizontalmente el contenido interno */
   min-height: 100vh;
   background-color: #F8FAFC;
+  box-sizing: border-box;
 }
 
 @media (max-width: 1024px) {
   .report-form-main {
     margin-left: 0;
+    width: 100%;
   }
 }
 
-/* TOPBAR SUPERIOR FLOTANTE */
+/* ==========================================================================
+   TOPBAR SUPERIOR FLOTANTE (ESTIRADA A TODO LO LARGO DE LA PANTALLA)
+   ========================================================================== */
 .report-topbar {
+  width: 100%;
   height: 64px;
-  padding: 0 24px;
+  padding: 0 32px;
   background: rgba(255, 255, 255, 0.90);
-  backdrop-filter: blur(12px);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid #E2E8F0;
   display: flex;
   align-items: center;
@@ -38,32 +49,85 @@
   position: sticky;
   top: 0;
   z-index: 100;
-  box-shadow: 0px 1px 8px rgba(0, 0, 0, 0.04);
+  box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.03);
+  box-sizing: border-box;
 }
 
 .report-breadcrumb {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
   font-size: 12px;
+  font-weight: 500;
   color: #94A3B8;
+  white-space: nowrap;
 }
 
 .report-breadcrumb-active {
   color: #0B1C30;
-  font-weight: 500;
+  font-weight: 600;
 }
 
-/* CONTENEDOR ANCHO */
+/* Badges de la derecha en la Topbar */
+.report-topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.topbar-status-badge {
+  background-color: #F0FDF4;
+  color: #16A34A;
+  padding: 4px 12px;
+  border-radius: 9999px;
+  font-size: 11px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid rgba(22, 163, 74, 0.15);
+}
+
+.topbar-location-badge {
+  background-color: #F1F5F9;
+  color: #3C627F;
+  padding: 4px 12px;
+  border-radius: 9999px;
+  font-size: 11px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+}
+
+@media (max-width: 640px) {
+  .report-topbar {
+    padding: 0 16px;
+    height: 56px;
+  }
+  .topbar-location-badge {
+    display: none; /* Oculta la sede en móviles muy pequeños para no saturar */
+  }
+}
+
+/* ==========================================================================
+   CONTENEDOR DEL CUERPO (CENTRADO A 1152px)
+   ========================================================================== */
 .report-body-wrapper {
-  padding: 32px 24px 120px 24px;
+  width: 100%;
   max-width: 1152px;
   margin: 0 auto;
-  width: 100%;
+  padding: 32px 24px 100px 24px;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
   gap: 24px;
+}
+
+@media (max-width: 640px) {
+  .report-body-wrapper {
+    padding: 20px 16px 80px 16px;
+    gap: 16px;
+  }
 }
 
 /* HEADER DEL FORMULARIO */
@@ -82,16 +146,18 @@
 }
 
 .report-title-main {
-  font-size: 28px;
-  font-weight: 600;
+  font-size: 26px;
+  font-weight: 700;
   color: #0B1C30;
   margin: 0 0 4px 0;
+  letter-spacing: -0.02em;
 }
 
 .report-title-sub {
   font-size: 14px;
   color: #475569;
   line-height: 1.4;
+  margin: 0;
 }
 
 .status-tag-registrada {
@@ -102,10 +168,11 @@
   font-size: 12px;
   font-weight: 500;
   color: #095223;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: 8px;
   height: fit-content;
+  white-space: nowrap;
 }
 
 .dot-green-icon {
@@ -113,21 +180,32 @@
   height: 8px;
   background-color: var(--sena-green, #39A900);
   border-radius: 50%;
+  flex-shrink: 0;
 }
 
-/* TARJETA BLANCA DEL FORMULARIO */
+/* ==========================================================================
+   TARJETA Y GRID DEL FORMULARIO
+   ========================================================================== */
 .report-card-container {
   background: #FFFFFF;
   border: 1px solid #E2E8F0;
   border-radius: 12px;
-  padding: 24px;
-  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05);
+  padding: 28px;
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.04);
   display: flex;
   flex-direction: column;
   gap: 24px;
 }
 
-/* ESTRUCTURA DE 2 COLUMNAS */
+@media (max-width: 640px) {
+  .report-card-container {
+    padding: 16px;
+    border-radius: 10px;
+    gap: 20px;
+  }
+}
+
+/* ESTRUCTURA DE 2 COLUMNAS RESPONSIVA */
 .form-two-columns {
   display: grid;
   grid-template-columns: 1fr;
@@ -189,15 +267,16 @@
   border-radius: 8px;
   font-size: 14px;
   color: #0B1C30;
-  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05);
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.03);
   outline: none;
   box-sizing: border-box;
-  transition: border-color 0.2s ease;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .input-text-standard:focus,
 .select-standard:focus {
   border-color: var(--sena-green, #39A900);
+  box-shadow: 0px 0px 0px 3px rgba(57, 169, 0, 0.12);
 }
 
 .input-with-icon-box {
@@ -213,24 +292,35 @@
   color: #94A3B8;
   display: flex;
   align-items: center;
+  pointer-events: none;
 }
 
 .input-with-icon {
   padding-left: 40px !important;
 }
 
-/* BOTONES SELECTORES DE CATEGORÍA (3 BOTONES) */
+/* ==========================================================================
+   BOTONES SELECTORES (RESPONSIVOS EN MÓVIL)
+   ========================================================================== */
+
+/* CATEGORÍAS (3 BOTONES) */
 .category-buttons-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 8px;
 }
 
+@media (max-width: 480px) {
+  .category-buttons-grid {
+    grid-template-columns: 1fr; /* Pasa a 1 sola columna en teléfonos pequeños */
+  }
+}
+
 .category-btn {
   background-color: #F8FAFC;
   border: 1px solid #E2E8F0;
   border-radius: 8px;
-  padding: 10px 8px;
+  padding: 12px 8px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -238,6 +328,7 @@
   gap: 6px;
   cursor: pointer;
   transition: all 0.2s ease;
+  box-sizing: border-box;
 }
 
 .category-btn:hover {
@@ -261,28 +352,50 @@
   font-weight: 600;
 }
 
-/* BOTONES DE NIVEL DE IMPACTO */
+/* NIVELES DE IMPACTO (3 BOTONES) */
 .impact-buttons-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 8px;
 }
 
+@media (max-width: 600px) {
+  .impact-buttons-grid {
+    grid-template-columns: 1fr; /* Columna vertical en pantallas chicas */
+  }
+}
+
 .impact-btn {
   background-color: #F8FAFC;
   border: 1px solid #E2E8F0;
   border-radius: 8px;
-  padding: 10px;
+  padding: 10px 12px;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   cursor: pointer;
   transition: all 0.2s ease;
+  box-sizing: border-box;
 }
 
+.impact-btn:hover {
+  background-color: #F1F5F9;
+}
+
+/* ESTADOS SELECCIONADOS DE IMPACTO */
 .impact-btn.selected-bloqueante {
-  background-color: rgba(255, 218, 214, 0.40);
+  background-color: rgba(255, 218, 214, 0.45);
   border: 2px solid #BA1A1A;
+}
+
+.impact-btn.selected-parcial {
+  background-color: #EFF6FF;
+  border: 2px solid #3C627F;
+}
+
+.impact-btn.selected-menor {
+  background-color: #F0FDF4;
+  border: 2px solid #16A34A;
 }
 
 .impact-dot {
@@ -300,7 +413,7 @@
 
 .impact-desc {
   font-size: 10px;
-  color: #94A3B8;
+  color: #64748B;
 }
 
 /* TEXTAREA DE DESCRIPCIÓN */
@@ -314,14 +427,16 @@
   font-size: 14px;
   font-family: inherit;
   color: #0B1C30;
-  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05);
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.03);
   outline: none;
   box-sizing: border-box;
   resize: vertical;
+  transition: border-color 0.2s ease;
 }
 
 .textarea-description:focus {
   border-color: var(--sena-green, #39A900);
+  box-shadow: 0px 0px 0px 3px rgba(57, 169, 0, 0.12);
 }
 
 /* ZONA DE DROPZONE FOTOGRÁFICA */
@@ -329,7 +444,7 @@
   background-color: #F8FAFC;
   border: 1px dashed #CBD5E1;
   border-radius: 12px;
-  padding: 20px;
+  padding: 24px 16px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -345,11 +460,11 @@
 }
 
 .upload-icon-circle {
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
   background-color: #FFFFFF;
   border-radius: 50%;
-  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05);
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.08);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -357,28 +472,78 @@
   margin-bottom: 8px;
 }
 
-/* FOOTER DE ACCIONES DEL FORMULARIO */
+/* LISTA DE ARCHIVOS ADJUNTOS */
+.attached-files-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.attached-file-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #F1F5F9;
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-size: 12px;
+  color: #0F172A;
+}
+
+.remove-file-btn {
+  background: none;
+  border: none;
+  color: #EF4444;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 2px 6px;
+  border-radius: 4px;
+  transition: background-color 0.15s ease;
+}
+
+.remove-file-btn:hover {
+  background-color: #FEE2E2;
+}
+
+/* ==========================================================================
+   FOOTER DE ACCIONES DEL FORMULARIO
+   ========================================================================== */
 .form-footer-actions {
-  padding-top: 16px;
+  padding-top: 20px;
   border-top: 1px solid #E2E8F0;
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  gap: 16px;
+  gap: 12px;
+}
+
+@media (max-width: 480px) {
+  .form-footer-actions {
+    flex-direction: column-reverse; /* El botón de radicar queda arriba en celular */
+    width: 100%;
+  }
+
+  .btn-cancel-return,
+  .btn-submit-novedad {
+    width: 100%;
+    justify-content: center;
+  }
 }
 
 .btn-cancel-return {
   background: transparent;
-  border: none;
+  border: 1px solid #E2E8F0;
   color: #475569;
   font-size: 12px;
   font-weight: 500;
   cursor: pointer;
-  padding: 10px 16px;
+  padding: 10px 18px;
   border-radius: 8px;
   display: flex;
   align-items: center;
   gap: 6px;
+  transition: background-color 0.2s ease;
 }
 
 .btn-cancel-return:hover {
@@ -403,52 +568,4 @@
 
 .btn-submit-novedad:hover {
   background-color: var(--sena-green-hover, #2f8b00);
-}
-/* BOTONES DE NIVEL DE IMPACTO - ESTADOS SELECCIONADOS */
-.impact-btn.selected-bloqueante {
-  background-color: rgba(255, 218, 214, 0.40);
-  border: 2px solid #BA1A1A;
-}
-
-.impact-btn.selected-parcial {
-  background-color: #EFF6FF;
-  border: 2px solid #3C627F;
-}
-
-.impact-btn.selected-menor {
-  background-color: #F0FDF4;
-  border: 2px solid #16A34A;
-}
-
-/* LISTA DE ARCHIVOS ADJUNTOS */
-.attached-files-list {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  margin-top: 8px;
-}
-
-.attached-file-item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background-color: #F1F5F9;
-  border-radius: 6px;
-  padding: 6px 12px;
-  font-size: 12px;
-  color: #0F172A;
-}
-
-.remove-file-btn {
-  background: none;
-  border: none;
-  color: #EF4444;
-  font-weight: bold;
-  cursor: pointer;
-  padding: 2px 6px;
-  border-radius: 4px;
-}
-
-.remove-file-btn:hover {
-  background-color: #FEE2E2;
 }
