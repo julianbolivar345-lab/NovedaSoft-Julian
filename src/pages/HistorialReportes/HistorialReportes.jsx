@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Sidebar } from '../../components/common/Sidebar';
 import { useAlert } from '../../context/AlertContext/AlertContext';
@@ -16,10 +16,25 @@ export const HistorialReportes = () => {
   const [selectedNovedad, setSelectedNovedad] = useState(null);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
+  // Estado para el menú desplegable de Exportar (PDF / Excel)
+  const [isExportMenuOpen, setIsExportMenuOpen] = useState(false);
+  const exportMenuRef = useRef(null);
+
   // Estados para Añadir Nota por cada radicado
   const [isAddingNote, setIsAddingNote] = useState(false);
   const [noteText, setNoteText] = useState('');
   const [notasPorRadicado, setNotasPorRadicado] = useState({});
+
+  // Cerrar dropdown de exportación al hacer clic fuera
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (exportMenuRef.current && !exportMenuRef.current.contains(event.target)) {
+        setIsExportMenuOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   // Lista Completa de Radicados de Novedades
   const reportesMock = [
@@ -279,6 +294,187 @@ export const HistorialReportes = () => {
     navigate('/instructor/verificar-ambiente');
   };
 
+  // =========================================================================
+  // 1. EXPORTAR HISTORIAL COMPLETO A EXCEL (.CSV COMPATIBLE CON EXCEL ESPAÑOL)
+  // =========================================================================
+  const handleExportHistorialExcel = () => {
+    setIsExportMenuOpen(false);
+
+    if (reportesFiltrados.length === 0) {
+      showAlert({
+        title: 'Sin registros',
+        message: 'No hay reportes en la tabla actual para exportar.',
+        type: 'warning',
+      });
+      return;
+    }
+
+    const headers = [
+      'Radicado',
+      'Fecha y Hora',
+      'Ambiente',
+      'Ficha',
+      'Elemento / Activo',
+      'Placa SENA',
+      'Falla Reportada',
+      'Impacto',
+      'Estado Actual',
+      'Técnico Responsable',
+      'Diagnóstico'
+    ];
+
+    const escapeCSV = (val) => `"${String(val || '').replace(/"/g, '""')}"`;
+
+    const rows = reportesFiltrados.map((item) => [
+      escapeCSV(item.radicado),
+      escapeCSV(item.fecha),
+      escapeCSV(item.ambiente),
+      escapeCSV(item.ficha),
+      escapeCSV(item.elemento),
+      escapeCSV(item.placa),
+      escapeCSV(item.falla),
+      escapeCSV(item.impacto),
+      escapeCSV(item.estado),
+      escapeCSV(item.tecnico),
+      escapeCSV(item.diagnostico),
+    ].join(';'));
+
+    // \uFEFF asegura que Excel abra acentos y eñes correctamente
+    const csvContent = '\uFEFF' + [headers.join(';'), ...rows].join('\n');
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+
+    const link = document.createElement('a');
+    link.href = url;
+    link.setAttribute('download', `Historial_Novedades_CIDE_${new Date().toISOString().slice(0, 10)}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+
+    showAlert({
+      title: 'Excel Generado',
+      message: `Se descargaron ${reportesFiltrados.length} registros del historial correctamente.`,
+      type: 'success',
+    });
+  };
+
+  // =========================================================================
+  // 2. EXPORTAR HISTORIAL COMPLETO A PDF INSTITUCIONAL
+  // =========================================================================
+  const handleExportHistorialPDF = () => {
+    setIsExportMenuOpen(false);
+
+    if (reportesFiltrados.length === 0) {
+      showAlert({
+        title: 'Sin registros',
+        message: 'No hay reportes en la tabla actual para exportar.',
+        type: 'warning',
+      });
+      return;
+    }
+
+    const printWindow = window.open('', '_blank', 'width=1050,height=850');
+    if (!printWindow) {
+      showAlert({
+        title: 'Ventana bloqueada',
+        message: 'Permite las ventanas emergentes en tu navegador para generar el PDF.',
+        type: 'warning',
+      });
+      return;
+    }
+
+    const filasHTML = reportesFiltrados
+      .map(
+        (item) => `
+        <tr>
+          <td style="font-family: monospace; font-weight: 700;">${item.radicado}<br/><span style="font-family: sans-serif; font-weight: 400; font-size: 10px; color: #64748B;">${item.fecha}</span></td>
+          <td><strong>${item.ambiente}</strong><br/><span style="font-size: 10px; color: #64748B;">${item.ficha}</span></td>
+          <td><strong>${item.elemento}</strong><br/><span style="font-family: monospace; font-size: 10px; color: #3C627F;">${item.placa}</span></td>
+          <td>${item.falla}<br/><span style="font-size: 10px; font-weight: 600; color: ${item.impacto === 'Bloqueante' ? '#DC2626' : '#3B617E'};">${item.impacto}</span></td>
+          <td><strong>${item.estado}</strong></td>
+          <td style="font-size: 11px;">${item.tecnico}</td>
+        </tr>
+      `
+      )
+      .join('');
+
+    printWindow.document.write(`
+      <!DOCTYPE html>
+      <html>
+        <head>
+          <title>Historial Consolidado de Novedades - NovedadSoft</title>
+          <style>
+            body { font-family: 'Segoe UI', Arial, sans-serif; padding: 32px; color: #0F172A; margin: 0; }
+            .header { border-bottom: 3px solid #39A900; padding-bottom: 14px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; }
+            .title { font-size: 19px; font-weight: 700; color: #0B1C30; margin: 0; }
+            .subtitle { font-size: 12px; color: #64748B; margin: 4px 0 0 0; }
+            .kpis { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 20px; }
+            .kpi-box { background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 8px; padding: 12px; }
+            .kpi-label { font-size: 10px; color: #64748B; text-transform: uppercase; font-weight: 700; }
+            .kpi-num { font-size: 20px; font-weight: 700; color: #0B1C30; margin-top: 4px; }
+            table { width: 100%; border-collapse: collapse; font-size: 11px; }
+            th { background: #F1F5F9; color: #475569; text-align: left; padding: 10px 8px; border-bottom: 2px solid #CBD5E1; text-transform: uppercase; font-size: 10px; }
+            td { padding: 9px 8px; border-bottom: 1px solid #E2E8F0; vertical-align: top; }
+            .footer { margin-top: 30px; font-size: 10px; color: #94A3B8; text-align: center; border-top: 1px solid #E2E8F0; padding-top: 10px; }
+          </style>
+        </head>
+        <body>
+          <div class="header">
+            <div>
+              <h1 class="title">SENA CIDE Soacha • Reporte Consolidado de Novedades</h1>
+              <p class="subtitle">Instructor: Ing. Carlos Mendoza R. • Filtro aplicado: ${activeTab} (${reportesFiltrados.length} registros)</p>
+            </div>
+            <div style="text-align: right; font-size: 11px; color: #475569;">
+              <strong>Fecha de emisión:</strong><br/>${new Date().toLocaleDateString()}
+            </div>
+          </div>
+
+          <div class="kpis">
+            <div class="kpi-box">
+              <div class="kpi-label">Total Reportados</div>
+              <div class="kpi-num">${countTodos}</div>
+            </div>
+            <div class="kpi-box">
+              <div class="kpi-label">En Atención Activa</div>
+              <div class="kpi-num">${countEvaluacion + countReparacion + countRegistradas}</div>
+            </div>
+            <div class="kpi-box">
+              <div class="kpi-label">Casos Resueltos</div>
+              <div class="kpi-num" style="color: #226D00;">${countResueltos}</div>
+            </div>
+          </div>
+
+          <table>
+            <thead>
+              <tr>
+                <th>Radicado / Fecha</th>
+                <th>Ambiente / Ficha</th>
+                <th>Elemento / Placa</th>
+                <th>Falla / Impacto</th>
+                <th>Estado</th>
+                <th>Técnico</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${filasHTML}
+            </tbody>
+          </table>
+
+          <div class="footer">
+            NovedadSoft • Centro Industrial y de Desarrollo Empresarial (CIDE) Soacha - Regional Cundinamarca
+          </div>
+        </body>
+      </html>
+    `);
+
+    printWindow.document.close();
+    printWindow.focus();
+    setTimeout(() => {
+      printWindow.print();
+    }, 300);
+  };
+
   // GUARDAR NOTA DE SEGUIMIENTO
   const handleSaveNote = (e) => {
     e.preventDefault();
@@ -314,7 +510,7 @@ export const HistorialReportes = () => {
     });
   };
 
-  // EXPORTAR FICHA PDF DE LA INCIDENCIA
+  // EXPORTAR FICHA PDF INDIVIDUAL DE LA INCIDENCIA
   const handleExportFichaPDF = () => {
     if (!selectedNovedad) return;
 
@@ -463,16 +659,48 @@ export const HistorialReportes = () => {
             </div>
 
             <div className="action-buttons-group">
-              <button className="btn-export">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-                  <polyline points="7 10 12 15 17 10"/>
-                  <line x1="12" y1="15" x2="12" y2="3"/>
-                </svg>
-                <span>Exportar Historial (PDF / Excel)</span>
-              </button>
+              {/* BOTÓN CON DROPDOWN DE EXPORTACIÓN PDF / EXCEL */}
+              <div className="export-dropdown-wrapper" ref={exportMenuRef}>
+                <button 
+                  type="button"
+                  className="btn-export" 
+                  onClick={() => setIsExportMenuOpen((prev) => !prev)}
+                >
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                    <polyline points="7 10 12 15 17 10"/>
+                    <line x1="12" y1="15" x2="12" y2="3"/>
+                  </svg>
+                  <span>Exportar Historial (PDF / Excel)</span>
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <polyline points="6 9 12 15 18 9"/>
+                  </svg>
+                </button>
 
-              <button className="btn-radicar-nueva" onClick={handleRadicarNueva}>
+                {isExportMenuOpen && (
+                  <div className="export-dropdown-menu">
+                    <button 
+                      type="button"
+                      className="export-dropdown-item" 
+                      onClick={handleExportHistorialPDF}
+                    >
+                      <span style={{ color: '#DC2626', fontWeight: '700', fontSize: '11px', backgroundColor: '#FEF2F2', padding: '2px 6px', borderRadius: '4px' }}>PDF</span>
+                      <span>Descargar Reporte PDF</span>
+                    </button>
+
+                    <button 
+                      type="button"
+                      className="export-dropdown-item" 
+                      onClick={handleExportHistorialExcel}
+                    >
+                      <span style={{ color: '#16A34A', fontWeight: '700', fontSize: '11px', backgroundColor: '#F0FDF4', padding: '2px 6px', borderRadius: '4px' }}>XLS</span>
+                      <span>Descargar Tabla Excel (.csv)</span>
+                    </button>
+                  </div>
+                )}
+              </div>
+
+              <button type="button" className="btn-radicar-nueva" onClick={handleRadicarNueva}>
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <line x1="12" y1="5" x2="12" y2="19"/>
                   <line x1="5" y1="12" x2="19" y2="12"/>

@@ -548,3 +548,104 @@
   flex-direction: column;
   gap: 10px;
 }
+/* ==========================================================================
+   MODAL PARA SUBIR HORARIO OFICIAL
+   ========================================================================== */
+.upload-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(15, 23, 42, 0.45);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: 250;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+.upload-modal-card {
+  width: 100%;
+  max-width: 460px;
+  background-color: #FFFFFF;
+  border-radius: 14px;
+  border: 1px solid #E2E8F0;
+  box-shadow: 0px 20px 35px rgba(15, 23, 42, 0.18);
+  overflow: hidden;
+  animation: scaleInModal 0.2s ease-out;
+}
+
+@keyframes scaleInModal {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.upload-dropzone-area {
+  border: 2px dashed #CBD5E1;
+  border-radius: 12px;
+  background-color: #F8FAFC;
+  padding: 28px 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.upload-dropzone-area:hover,
+.upload-dropzone-area.drag-over {
+  border-color: var(--sena-green, #39A900);
+  background-color: #F0FDF4;
+}
+
+.uploaded-file-pill {
+  background-color: #ECFDF5;
+  border: 1px solid #A7F3D0;
+  border-radius: 10px;
+  padding: 12px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.horario-sync-banner {
+  background-color: #F0FDF4;
+  border: 1px solid #BBF7D0;
+  color: #065F46;
+  padding: 10px 16px;
+  border-radius: 10px;
+  font-size: 12px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.btn-novedad-drawer {
+  background-color: #FEF2F2;
+  border: 1px solid #FECACA;
+  color: #BA1A1A;
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: background-color 0.15s ease;
+}
+
+.btn-novedad-drawer:hover {
+  background-color: #FEE2E2;
+}

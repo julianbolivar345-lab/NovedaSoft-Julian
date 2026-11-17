@@ -12,14 +12,13 @@
   overflow-x: hidden;
 }
 
-/* CONTENEDOR PRINCIPAL: Flexbox vertical que abarca el área tras el Sidebar */
 .consulta-main-content {
   flex: 1;
-  margin-left: 288px; /* Offset para el Sidebar Desktop */
+  margin-left: 288px;
   width: calc(100% - 288px);
   display: flex;
   flex-direction: column;
-  align-items: center; /* OBLIGATORIO: Centra horizontalmente el cuerpo */
+  align-items: center;
   min-height: 100vh;
   background-color: #F8FAFC;
   box-sizing: border-box;
@@ -33,7 +32,7 @@
 }
 
 /* ==========================================================================
-   TOPBAR SUPERIOR FLOTANTE (DE EXTREMO A EXTREMO, ORGANIZADA)
+   TOPBAR SUPERIOR FLOTANTE
    ========================================================================== */
 .consulta-topbar {
   width: 100%;
@@ -68,7 +67,6 @@
   font-weight: 600;
 }
 
-/* Insignias alineadas a la derecha de la Topbar */
 .consulta-topbar-right {
   display: flex;
   align-items: center;
@@ -105,12 +103,12 @@
     height: 56px;
   }
   .topbar-sede-pill {
-    display: none; /* Oculta la sede en móviles pequeños para evitar desbordes */
+    display: none;
   }
 }
 
 /* ==========================================================================
-   CONTENEDOR DEL CUERPO (CENTRADO EN PANTALLAS ANCHAS A 1280px)
+   CONTENEDOR DEL CUERPO
    ========================================================================== */
 .consulta-body-container {
   width: 100%;
@@ -130,7 +128,6 @@
   }
 }
 
-/* HEADER Y BOTONES DE ACCIÓN */
 .consulta-header-row {
   display: flex;
   flex-direction: column;
@@ -301,21 +298,8 @@
 }
 
 /* ==========================================================================
-   GRID PRINCIPAL DE 2 COLUMNAS (TABLA + FICHA TÉCNICA)
+   TARJETA DE LA TABLA (ANCHO COMPLETO)
    ========================================================================== */
-.inventory-grid-container {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 24px;
-}
-
-@media (min-width: 1024px) {
-  .inventory-grid-container {
-    grid-template-columns: 1fr 380px;
-  }
-}
-
-/* TARJETA DE LA TABLA */
 .inventory-table-card {
   background: #FFFFFF;
   border-radius: 12px;
@@ -324,6 +308,7 @@
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  width: 100%;
 }
 
 .inventory-table-header {
@@ -339,7 +324,7 @@
   width: 100%;
   border-collapse: collapse;
   text-align: left;
-  min-width: 600px; /* Scroll horizontal automático en celulares */
+  min-width: 650px;
 }
 
 .inventario-table th {
@@ -427,7 +412,7 @@
   border-radius: 50%;
 }
 
-/* BOTÓN FICHA EN TABLA */
+/* BOTÓN VER FICHA EN TABLA */
 .btn-ver-ficha {
   padding: 6px 12px;
   background-color: #F1F5F9;
@@ -437,28 +422,65 @@
   font-weight: 500;
   color: #3C627F;
   cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
   transition: all 0.15s ease;
 }
 
+.btn-ver-ficha:hover {
+  background-color: #E2E8F0;
+}
+
 .btn-ver-ficha.active-ficha {
-  background-color: #FFFFFF;
-  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05);
+  background-color: #3C627F;
+  color: #FFFFFF;
+  border-color: #3C627F;
   font-weight: 600;
-  border-color: #CBD5E1;
 }
 
 /* ==========================================================================
-   PANEL DE FICHA TÉCNICA LATERAL (DERECHA)
+   DRAWER LATERAL DE FICHA TÉCNICA (IGUAL QUE HISTORIAL DE REPORTES)
    ========================================================================== */
-.ficha-tecnica-card {
-  background: #FFFFFF;
-  border-radius: 12px;
-  border: 1px solid #E2E8F0;
-  padding: 24px;
-  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.04);
+.ficha-drawer-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(15, 23, 42, 0.35);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  z-index: 200;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.ficha-drawer-panel {
+  width: 100%;
+  max-width: 430px;
+  height: 100vh;
+  background-color: #FFFFFF;
+  box-shadow: -10px 0px 25px rgba(0, 0, 0, 0.15);
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  justify-content: space-between;
+  animation: slideInFichaRight 0.25s ease-out;
+}
+
+@keyframes slideInFichaRight {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.ficha-drawer-body {
+  padding: 20px;
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
 }
 
 .meta-protected-box {
@@ -530,10 +552,10 @@
 .btn-reportar-novedad-equipo:hover {
   background-color: #FEE2E2;
 }
-/* ==========================================================================
-   AJUSTES RESPONSIVOS MÓVIL - CONSULTA DE MATERIALES
-   ========================================================================== */
 
+/* ==========================================================================
+   AJUSTES RESPONSIVOS MÓVIL
+   ========================================================================== */
 @media (max-width: 768px) {
   .consulta-topbar {
     height: auto;
@@ -563,13 +585,6 @@
     font-size: 13px;
   }
 
-  .consulta-header-actions-mobile {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    width: 100%;
-  }
-
   .ambient-selector-box {
     width: 100%;
     box-sizing: border-box;
@@ -581,27 +596,8 @@
     height: 44px;
   }
 
-  .search-filter-row-mobile {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    width: 100%;
-  }
-
   .search-input-box {
     max-width: 100%;
-  }
-
-  .sort-filter-box-mobile {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    width: 100%;
-  }
-
-  .sort-filter-box-mobile select {
-    width: 100%;
-    height: 42px;
   }
 
   .inventory-table-header {
@@ -609,5 +605,70 @@
     align-items: flex-start;
     gap: 8px;
     padding: 14px 16px;
+  }
+}
+/* ==========================================================================
+   MENÚ DESPLEGABLE DE EXPORTACIÓN DE INVENTARIO (EXCEL / PDF)
+   ========================================================================== */
+.export-inv-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.export-inv-menu {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  width: 230px;
+  background-color: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 10px;
+  box-shadow: 0px 10px 25px rgba(15, 23, 42, 0.12);
+  padding: 6px;
+  z-index: 150;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  animation: fadeInInvMenu 0.15s ease-out;
+}
+
+@keyframes fadeInInvMenu {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.export-inv-item {
+  width: 100%;
+  padding: 9px 12px;
+  background: transparent;
+  border: none;
+  border-radius: 7px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #0F172A;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-align: left;
+  transition: background-color 0.15s ease;
+}
+
+.export-inv-item:hover {
+  background-color: #F1F5F9;
+}
+
+@media (max-width: 768px) {
+  .export-inv-wrapper {
+    width: 100%;
+  }
+  .export-inv-menu {
+    width: 100%;
   }
 }

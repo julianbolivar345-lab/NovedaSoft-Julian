@@ -696,3 +696,59 @@
   flex-direction: column;
   gap: 8px;
 }
+/* ==========================================================================
+   MENÚ DESPLEGABLE DE EXPORTACIÓN (PDF / EXCEL)
+   ========================================================================== */
+.export-dropdown-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.export-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  width: 220px;
+  background-color: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 10px;
+  box-shadow: 0px 10px 25px rgba(15, 23, 42, 0.12);
+  padding: 6px;
+  z-index: 150;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  animation: fadeInDown 0.15s ease-out;
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.export-dropdown-item {
+  width: 100%;
+  padding: 9px 12px;
+  background: transparent;
+  border: none;
+  border-radius: 7px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #0B1C30;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-align: left;
+  transition: background-color 0.15s ease;
+}
+
+.export-dropdown-item:hover {
+  background-color: #F1F5F9;
+}
