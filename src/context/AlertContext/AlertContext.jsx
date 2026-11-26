@@ -10,7 +10,11 @@ export const AlertProvider = ({ children }) => {
     isOpen: false,
     title: '',
     message: '',
-    type: 'success', // 'success' | 'error' | 'warning' | 'info'
+    type: 'success', // 'success' | 'error' | 'warning' | 'info' | 'logout'
+    isConfirm: false,
+    confirmText: 'Confirmar',
+    cancelText: 'Cancelar',
+    onConfirm: null,
   });
 
   const showAlert = ({ title = '¡Operación Exitosa!', message, type = 'success' }) => {
@@ -19,11 +23,38 @@ export const AlertProvider = ({ children }) => {
       title,
       message,
       type,
+      isConfirm: false,
+      onConfirm: null,
+    });
+  };
+
+  const showConfirm = ({
+    title = '¿Cerrar sesión?',
+    message = '¿Estás seguro de que deseas salir de NovedaSoft?.',
+    type = 'logout',
+    confirmText = 'Confirmar',
+    cancelText = 'Cancelar',
+    onConfirm,
+  }) => {
+    setAlertState({
+      isOpen: true,
+      title,
+      message,
+      type,
+      isConfirm: true,
+      confirmText,
+      cancelText,
+      onConfirm,
     });
   };
 
   const closeAlert = () => {
     setAlertState((prev) => ({ ...prev, isOpen: false }));
+  };
+
+  const handleConfirm = () => {
+    if (alertState.onConfirm) alertState.onConfirm();
+    closeAlert();
   };
 
   // Interceptor global: reemplaza los alert() nativos del navegador en toda la app
@@ -48,7 +79,7 @@ export const AlertProvider = ({ children }) => {
   }, []);
 
   return (
-    <AlertContext.Provider value={{ showAlert, closeAlert }}>
+    <AlertContext.Provider value={{ showAlert, showConfirm, closeAlert }}>
       {children}
 
       {alertState.isOpen && (
@@ -56,7 +87,7 @@ export const AlertProvider = ({ children }) => {
           <div className="ns-alert-card" onClick={(e) => e.stopPropagation()}>
             
             {/* Ícono dinámico según el tipo */}
-            <div className={`ns-alert-icon ns-icon-${alertState.type}`}>
+            <div className={`ns-alert-icon ns-icon-${alertState.type === 'logout' ? 'error' : alertState.type}`}>
               {alertState.type === 'success' && (
                 <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
@@ -79,18 +110,44 @@ export const AlertProvider = ({ children }) => {
                   <line x1="12" y1="8" x2="12.01" y2="8" />
                 </svg>
               )}
+              {alertState.type === 'logout' && (
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                  <polyline strokeLinecap="round" strokeLinejoin="round" points="16 17 21 12 16 7" />
+                  <line strokeLinecap="round" strokeLinejoin="round" x1="21" y1="12" x2="9" y2="12" />
+                </svg>
+              )}
             </div>
 
             <h3 className="ns-alert-title">{alertState.title}</h3>
             <p className="ns-alert-message">{alertState.message}</p>
 
-            <button
-              type="button"
-              className={`ns-alert-btn ns-btn-${alertState.type}`}
-              onClick={closeAlert}
-            >
-              Aceptar
-            </button>
+            {alertState.isConfirm ? (
+              <div className="ns-alert-actions">
+                <button
+                  type="button"
+                  className="ns-alert-btn ns-btn-cancel"
+                  onClick={closeAlert}
+                >
+                  {alertState.cancelText}
+                </button>
+                <button
+                  type="button"
+                  className="ns-alert-btn ns-btn-error"
+                  onClick={handleConfirm}
+                >
+                  {alertState.confirmText}
+                </button>
+              </div>
+            ) : (
+              <button
+                type="button"
+                className={`ns-alert-btn ns-btn-${alertState.type}`}
+                onClick={closeAlert}
+              >
+                Aceptar
+              </button>
+            )}
           </div>
         </div>
       )}

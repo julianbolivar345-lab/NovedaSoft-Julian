@@ -1,0 +1,252 @@
+@import './variables.css';
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background-color: var(--bg-app);
+  color: var(--text-main);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ================= BOTONES REUTILIZABLES ================= */
+.nsw-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 9px 16px;
+  border-radius: var(--radius-sm);
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.nsw-btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.nsw-btn-primary {
+  background-color: var(--color-primary);
+  color: #ffffff;
+  box-shadow: var(--shadow-xs);
+}
+.nsw-btn-primary:hover:not(:disabled) {
+  background-color: var(--color-primary-hover);
+}
+
+.nsw-btn-secondary {
+  background-color: var(--bg-surface);
+  border-color: var(--border-color);
+  color: var(--text-body);
+}
+.nsw-btn-secondary:hover:not(:disabled) {
+  background-color: var(--bg-app);
+  border-color: var(--border-strong);
+}
+
+.nsw-btn-danger {
+  background-color: var(--color-danger);
+  color: #ffffff;
+}
+.nsw-btn-danger:hover:not(:disabled) {
+  background-color: var(--color-danger-hover);
+}
+
+.nsw-btn-ghost {
+  background: transparent;
+  color: var(--text-muted);
+}
+.nsw-btn-ghost:hover:not(:disabled) {
+  background-color: var(--bg-muted);
+  color: var(--text-main);
+}
+
+/* ================= PILLS Y BADGES GLOBALES ================= */
+.nsw-eyebrow-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 12px;
+  background-color: var(--color-primary-light);
+  border: 1px solid var(--color-primary-border);
+  border-radius: var(--radius-full);
+  color: var(--color-primary-dark);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  margin-bottom: 10px;
+}
+
+.nsw-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: var(--radius-full);
+  display: inline-block;
+  flex-shrink: 0;
+}
+.nsw-dot.green { background-color: var(--color-primary); }
+.nsw-dot.blue { background-color: var(--color-secondary); }
+.nsw-dot.red { background-color: var(--color-danger); }
+
+/* ================= LAYOUT COMPARTIDO (SIDEBAR + TOPBAR) ================= */
+.nsw-shell {
+  display: flex;
+  min-height: 100vh;
+  background-color: var(--bg-app);
+}
+
+.nsw-shell-main {
+  flex: 1;
+  margin-left: var(--sidebar-width);
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.nsw-topbar {
+  height: var(--topbar-height);
+  background-color: var(--bg-surface);
+  border-bottom: 1px solid var(--border-color);
+  padding: 0 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 90;
+}
+
+.nsw-topbar-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.nsw-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.nsw-breadcrumb .sep {
+  color: var(--text-subtle);
+}
+
+.nsw-breadcrumb .current {
+  color: var(--text-main);
+  font-weight: 600;
+}
+
+.nsw-topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.nsw-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 12px;
+  border-radius: var(--radius-full);
+  font-size: 12px;
+  font-weight: 600;
+  background-color: var(--bg-muted);
+  color: var(--text-body);
+}
+
+.nsw-status-badge.online {
+  background-color: var(--color-primary-light);
+  color: var(--color-primary-dark);
+}
+
+.nsw-shell-content {
+  flex: 1;
+  padding: 28px;
+}
+
+@media (max-width: 1024px) {
+  .nsw-shell-main {
+    margin-left: 0;
+  }
+  .nsw-topbar {
+    padding-left: 60px;
+    padding-right: 16px;
+  }
+  .nsw-shell-content {
+    padding: 20px 16px;
+  }
+}
+
+@media (max-width: 768px) {
+  .hide-mobile {
+    display: none !important;
+  }
+}
+
+/* ================= MODAL CERRAR SESIÓN (ÚNICO PARA TODO EL SISTEMA) ================= */
+.logout-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(15, 23, 42, 0.45);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+.logout-modal-card {
+  background: var(--bg-surface);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-lg);
+  width: 100%;
+  max-width: 370px;
+  padding: 28px 24px 24px;
+  text-align: center;
+}
+
+.logout-modal-icon {
+  width: 52px;
+  height: 52px;
+  background-color: var(--color-danger-light);
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 16px auto;
+}
+
+.logout-modal-title {
+  font-size: 19px;
+  font-weight: 700;
+  color: var(--text-main);
+  margin: 0 0 8px 0;
+}
+
+.logout-modal-text {
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.5;
+  margin: 0 0 24px 0;
+}
+
+.logout-modal-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}

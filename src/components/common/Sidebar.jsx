@@ -1,15 +1,56 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
+import {
+  Calendar,
+  CheckCircle2,
+  AlertTriangle,
+  History,
+  Monitor,
+  FileText,
+  LayoutGrid,
+  LogOut,
+  Menu,
+  X,
+  Layers,
+  User
+} from 'lucide-react';
+import Button from '../Button/Button';
 import './Sidebar.css';
 
-export const Sidebar = ({ activeMenu, userName = 'Ing. Carlos Mendoza R.', userRole = 'Instructor ADSO / Redes' }) => {
+const MENU_POR_ROL = {
+  instructor: {
+    badge: 'Instructor',
+    defaultUser: 'Ing. Carlos Mendoza R.',
+    defaultRole: 'Instructor ADSO / Redes',
+    items: [
+      { label: 'Mi Horario', path: '/instructor/horario', icon: Calendar },
+      { label: 'Verificar Ambiente', path: '/instructor/verificar-ambiente', icon: CheckCircle2 },
+      { label: 'Reportar Novedad', path: '/instructor/reportar-novedad', icon: AlertTriangle },
+      { label: 'Historial de Reportes', path: '/instructor/historial', icon: History },
+      { label: 'Consulta de Materiales', path: '/instructor/consulta-materiales', icon: Monitor },
+    ],
+  },
+  coordinacion: {
+    badge: 'Panel Coordinación',
+    defaultUser: 'Coord. María Bustamante',
+    defaultRole: 'Coordinación Académica',
+    items: [
+      { label: 'Autorizaciones Pendientes', path: '/coordinacion/autorizaciones', icon: FileText, count: 4 },
+      { label: 'Mapa de Ambientes', path: '/coordinacion/mapa-ambientes', icon: LayoutGrid },
+      { label: 'Historial de Decisiones', path: '/coordinacion/historial', icon: History },
+    ],
+  },
+};
+
+export const Sidebar = ({ role = 'instructor', userName, userRole }) => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [isOpen, setIsOpen] = useState(false);
   const [showLogoutModal, setShowLogoutModal] = useState(false);
 
-  const toggleSidebar = () => {
-    setIsOpen(!isOpen);
-  };
+  const config = MENU_POR_ROL[role] || MENU_POR_ROL.instructor;
+  const displayUser = userName || config.defaultUser;
+  const displayRole = userRole || config.defaultRole;
 
   const handleNavigation = (path) => {
     navigate(path);
@@ -23,32 +64,27 @@ export const Sidebar = ({ activeMenu, userName = 'Ing. Carlos Mendoza R.', userR
 
   return (
     <>
-      {/* BOTÓN HAMBURGUESA FLOTANTE (Siempre visible en la esquina superior izquierda en móvil) */}
-      <button 
-        className="mobile-hamburger-trigger" 
-        onClick={toggleSidebar} 
+      <button
+        type="button"
+        className="mobile-hamburger-trigger"
+        onClick={() => setIsOpen(true)}
         aria-label="Abrir menú"
       >
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0B1C30" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-          <line x1="3" y1="12" x2="21" y2="12" />
-          <line x1="3" y1="6" x2="21" y2="6" />
-          <line x1="3" y1="18" x2="21" y2="18" />
-        </svg>
+        <Menu size={20} color="#0B1C30" />
       </button>
 
-      {/* OVERLAY OSCURO PARA CERRAR AL HACER CLIC FUERA */}
-      {isOpen && <div className="sidebar-mobile-backdrop" onClick={toggleSidebar} />}
+      {isOpen && (
+        <div
+          className="sidebar-mobile-backdrop"
+          onClick={() => setIsOpen(false)}
+        />
+      )}
 
-      {/* PANEL DEL SIDEBAR */}
       <aside className={`sidebar-container ${isOpen ? 'mobile-visible' : ''}`}>
-        
-        {/* Cabecera del Sidebar */}
         <div className="sidebar-header">
           <div className="sidebar-brand-row">
             <div className="sidebar-logo-icon">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
-              </svg>
+              <Layers size={20} color="#FFFFFF" />
             </div>
 
             <div className="sidebar-brand-text">
@@ -56,136 +92,93 @@ export const Sidebar = ({ activeMenu, userName = 'Ing. Carlos Mendoza R.', userR
               <span className="brand-sub">SENA CIDE Soacha</span>
             </div>
 
-            {/* Botón X para cerrar dentro del menú */}
-            <button className="mobile-close-trigger" onClick={toggleSidebar}>
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#64748B" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <line x1="18" y1="6" x2="6" y2="18" />
-                <line x1="6" y1="6" x2="18" y2="18" />
-              </svg>
+            <button
+              type="button"
+              className="mobile-close-trigger"
+              onClick={() => setIsOpen(false)}
+              aria-label="Cerrar menú"
+            >
+              <X size={20} color="#64748B" />
             </button>
           </div>
 
           <div className="role-pill">
             <span className="dot-active" />
-            <span>Instructor</span>
+            <span>{config.badge}</span>
           </div>
         </div>
 
         <div className="sidebar-divider" />
 
-        {/* Menú de Opciones */}
         <nav className="sidebar-nav">
           <div className="nav-section-label">MENÚ PRINCIPAL</div>
 
-          <button 
-            className={`nav-item-btn ${activeMenu === 'horario' ? 'active' : ''}`}
-            onClick={() => handleNavigation('/instructor/horario')}
-          >
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
-              <line x1="16" y1="2" x2="16" y2="6" />
-              <line x1="8" y1="2" x2="8" y2="6" />
-              <line x1="3" y1="10" x2="21" y2="10" />
-            </svg>
-            <span>Mi Horario</span>
-          </button>
-
-          <button 
-            className={`nav-item-btn ${activeMenu === 'verificar' ? 'active' : ''}`}
-            onClick={() => handleNavigation('/instructor/verificar-ambiente')}
-          >
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-            <span>Verificar Ambiente</span>
-          </button>
-
-          <button 
-            className={`nav-item-btn ${activeMenu === 'reportar' ? 'active' : ''}`}
-            onClick={() => handleNavigation('/instructor/reportar-novedad')}
-          >
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-            </svg>
-            <span>Reportar Novedad</span>
-          </button>
-
-          <button 
-            className={`nav-item-btn ${activeMenu === 'historial' ? 'active' : ''}`}
-            onClick={() => handleNavigation('/instructor/historial')}
-          >
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-            <span>Historial de Reportes</span>
-          </button>
-
-          <button 
-            className={`nav-item-btn ${activeMenu === 'consulta' ? 'active' : ''}`}
-            onClick={() => handleNavigation('/instructor/consulta-materiales')}
-          >
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
-              <line x1="8" y1="21" x2="16" y2="21"/>
-              <line x1="12" y1="17" x2="12" y2="21"/>
-            </svg>
-            <span>Consulta de Materiales</span>
-          </button>
+          {config.items.map((item) => {
+            const IconComponent = item.icon;
+            const isActive = location.pathname === item.path;
+            return (
+              <button
+                key={item.path}
+                type="button"
+                className={`nav-item-btn ${isActive ? 'active' : ''}`}
+                onClick={() => handleNavigation(item.path)}
+              >
+                <IconComponent size={18} />
+                <span style={{ flex: 1 }}>{item.label}</span>
+                {item.count !== undefined && (
+                  <span className={`sidebar-count-pill ${isActive ? 'active' : ''}`}>
+                    {item.count}
+                  </span>
+                )}
+              </button>
+            );
+          })}
         </nav>
 
-        {/* Tarjeta de Usuario */}
         <div className="sidebar-user-card">
           <div className="user-info-wrapper">
             <div className="user-avatar">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-              </svg>
+              <User size={18} color="#FFFFFF" />
             </div>
             <div className="user-details">
-              <span className="user-name">{userName}</span>
-              <span className="user-role">{userRole}</span>
+              <span className="user-name">{displayUser}</span>
+              <span className="user-role">{displayRole}</span>
             </div>
           </div>
 
-          <button className="btn-logout" onClick={() => setShowLogoutModal(true)}>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#BA1A1A" strokeWidth="2">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
-            </svg>
+          <button
+            type="button"
+            className="btn-logout"
+            onClick={() => {
+              setIsOpen(false);
+              setShowLogoutModal(true);
+            }}
+          >
+            <LogOut size={14} color="#BA1A1A" />
             <span>Cerrar Sesión</span>
           </button>
         </div>
       </aside>
 
-      {/* MODAL DE CONFIRMACIÓN DE CIERRE DE SESIÓN */}
       {showLogoutModal && (
         <div className="logout-modal-overlay" onClick={() => setShowLogoutModal(false)}>
           <div className="logout-modal-card" onClick={(e) => e.stopPropagation()}>
             <div className="logout-modal-icon">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#BA1A1A" strokeWidth="2">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
-              </svg>
+              <LogOut size={24} color="#BA1A1A" />
             </div>
-            
+
             <h3 className="logout-modal-title">¿Cerrar sesión?</h3>
             <p className="logout-modal-text">
-              ¿Estás seguro de que deseas salir de NovedaSoft?.
+              ¿Estás seguro de que deseas salir de NovedaSoft?
             </p>
 
             <div className="logout-modal-actions">
-              <button 
-                type="button"
-                className="btn-modal-cancel"
-                onClick={() => setShowLogoutModal(false)}
-              >
+              <Button variant="secondary" onClick={() => setShowLogoutModal(false)}>
                 Cancelar
-              </button>
-              <button 
-                type="button"
-                className="btn-modal-confirm"
-                onClick={handleConfirmLogout}
-              >
+              </Button>
+              <Button variant="danger" onClick={handleConfirmLogout}>
                 Confirmar
-              </button>
+              </Button>
             </div>
           </div>
         </div>
